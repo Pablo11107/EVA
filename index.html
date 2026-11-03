@@ -2,6 +2,21 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
+<!-- Seguridad. GitHub Pages no permite cabeceras propias, así que la política va
+     aquí. Los scripts en línea se autorizan por su hash: si se cambia uno, hay que
+     recalcularlo o el navegador lo bloqueará (el aviso sale en la consola). -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-chSJLQD0kJRWluf5RHPPnRlfP/yVp4T+o8YGGFHG2cI=' 'sha256-j1cBPmyMFnr6siCE9ktjA4/IIP3wbp9Wmt4EfOpxzl0=' 'sha256-3pFpsWcWgQJbcMP1gF84J9uIT73NhXjl7dIK9bkieos=' 'sha256-sEymugb9J17M2SmjffRdhyblKJEpisucupjWVB7Ajkk=' https://cdn.jsdelivr.net/npm/@typebot.io/js@0.10.11/dist/web.js https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js; style-src 'unsafe-inline' https://fonts.googleapis.com https://fonts.bunny.net; font-src https://fonts.gstatic.com https://fonts.bunny.net; img-src 'self' data: blob: https://typebot.io https://*.typebot.io; connect-src https://typebot.io https://*.typebot.io; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<!-- Versiones fijas y huella SRI: si el CDN sirviera otro contenido, no se ejecuta. -->
+<script type="importmap">
+{
+  "imports": {},
+  "integrity": {
+    "https://cdn.jsdelivr.net/npm/@typebot.io/js@0.10.11/dist/web.js": "sha384-+bO+9Ljj0q4+HoHgcp/sjAyJ59nBgkbZJrYC5WXQRypVh+OwJa/3281qHKiESjYJ",
+    "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js": "sha384-61S/Nu32S3E5+n+KpCOTb2eRYps6fVKm+9Gz1QBvSePFthb46f063Aa/qe/lykFZ"
+  }
+}
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>EVA · Asistente virtual de EMALSA</title>
 <meta name="description" content="Demostración del asistente virtual de atención al cliente: qué es, qué responde, qué se mide cada mes y qué puede hacer en el futuro.">
@@ -820,14 +835,14 @@
     var mil = el.dataset.mil === '1';
     var pre = el.dataset.prefijo || '';
     var suf = el.dataset.sufijo || '';
-    if(reducido){ el.innerHTML = pre + (mil ? miles(fin) : fin) + suf; return; }
+    if(reducido){ el.textContent = pre + (mil ? miles(fin) : fin) + suf; return; }
     var t0 = null, dur = 1300;
     function paso(t){
       if(!t0) t0 = t;
       var p = Math.min((t - t0)/dur, 1);
       var e = 1 - Math.pow(1 - p, 3);
       var v = Math.round(fin * e);
-      el.innerHTML = pre + (mil ? miles(v) : v) + suf;
+      el.textContent = pre + (mil ? miles(v) : v) + suf;
       if(p < 1) requestAnimationFrame(paso);
     }
     requestAnimationFrame(paso);
@@ -853,13 +868,13 @@
       c.style.strokeDashoffset = 440 - (440 * pct/100);
       var txt = document.getElementById('donaPct');
       if(txt){
-        if(reducido){ txt.innerHTML = pct + '&nbsp;%'; }
+        if(reducido){ txt.textContent = pct + ' %'; }
         else{
           var t0=null;
           (function run(t){
             if(!t0) t0=t;
             var p = Math.min((t-t0)/1300,1);
-            txt.innerHTML = Math.round(pct*(1-Math.pow(1-p,3))) + '&nbsp;%';
+            txt.textContent = Math.round(pct*(1-Math.pow(1-p,3))) + ' %';
             if(p<1) requestAnimationFrame(run);
           })(performance.now());
         }
@@ -1170,7 +1185,7 @@ try {
 <script type="module">
   // El asistente real, como burbuja flotante: tal cual quedaría en la web
   // de la empresa. Para apuntar a otra versión, cambie el identificador.
-  import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js'
+  import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0.10.11/dist/web.js'
 
   // El isotipo de EVA en blanco, para que el botón no sea un bocadillo genérico.
   const icono = 'data:image/svg+xml;utf8,' + encodeURIComponent(
@@ -1192,7 +1207,7 @@ try {
   );
 
   Typebot.initBubble({
-    typebot: "eva-asistente-virtual-de-emalsa-zl3qrh4",
+    typebot: "eva-asistente-virtual-de-emalsa-oi2fy0m",
     theme: {
       button: { backgroundColor: "#214881", customIconSrc: icono },
       chatWindow: { backgroundColor: "#FFFFFF" },
