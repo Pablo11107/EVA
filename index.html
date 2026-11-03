@@ -3,17 +3,21 @@
 <head>
 <meta charset="utf-8">
 <!-- Seguridad. GitHub Pages no permite cabeceras propias, así que la política va
-     aquí. Los scripts en línea se autorizan por su hash: si se cambia uno, hay que
-     recalcularlo o el navegador lo bloqueará (el aviso sale en la consola). -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-chSJLQD0kJRWluf5RHPPnRlfP/yVp4T+o8YGGFHG2cI=' 'sha256-j1cBPmyMFnr6siCE9ktjA4/IIP3wbp9Wmt4EfOpxzl0=' 'sha256-3pFpsWcWgQJbcMP1gF84J9uIT73NhXjl7dIK9bkieos=' 'sha256-sEymugb9J17M2SmjffRdhyblKJEpisucupjWVB7Ajkk=' https://cdn.jsdelivr.net/npm/@typebot.io/js@0.10.11/dist/web.js https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js; style-src 'unsafe-inline' https://fonts.googleapis.com https://fonts.bunny.net; font-src https://fonts.gstatic.com https://fonts.bunny.net; img-src 'self' data: blob: https://typebot.io https://*.typebot.io; connect-src https://typebot.io https://*.typebot.io; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+     aquí. Los scripts en línea se autorizan por su hash: si se cambia uno, ejecute
+     `python3 scripts/verificar.py --actualizar-csp` o el navegador lo bloqueará. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-gTlvXqMZjEExzHomwwXNOhQQcDxzCbvoqjFMIW5102c=' 'sha256-j1cBPmyMFnr6siCE9ktjA4/IIP3wbp9Wmt4EfOpxzl0=' 'sha256-KJVFPqbclVB5AhF/M83qf0YejyfAha/BCW7FFUBO7mo=' 'sha256-XIaZT1uEENZKwN39jpvBYQPyLxZIQilolJRXVoiKQ+o='; style-src 'unsafe-inline' https://fonts.bunny.net; font-src 'self' https://fonts.bunny.net; img-src 'self' data: blob: https://typebot.io https://*.typebot.io; connect-src https://typebot.io https://*.typebot.io; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<!-- Versiones fijas y huella SRI: si el CDN sirviera otro contenido, no se ejecuta. -->
+<!-- La página es una demostración: que no la indexen los buscadores, para que nadie
+     la confunda con un canal oficial. -->
+<meta name="robots" content="noindex, nofollow">
+<!-- Librerías copiadas en vendor/ (three.js 0.160.0 y @typebot.io/js 0.10.11), sin
+     depender de un CDN. La huella SRI impide ejecutarlas si alguien las altera. -->
 <script type="importmap">
 {
   "imports": {},
   "integrity": {
-    "https://cdn.jsdelivr.net/npm/@typebot.io/js@0.10.11/dist/web.js": "sha384-+bO+9Ljj0q4+HoHgcp/sjAyJ59nBgkbZJrYC5WXQRypVh+OwJa/3281qHKiESjYJ",
-    "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js": "sha384-61S/Nu32S3E5+n+KpCOTb2eRYps6fVKm+9Gz1QBvSePFthb46f063Aa/qe/lykFZ"
+    "./vendor/typebot-web.js": "sha384-+bO+9Ljj0q4+HoHgcp/sjAyJ59nBgkbZJrYC5WXQRypVh+OwJa/3281qHKiESjYJ",
+    "./vendor/three.module.js": "sha384-61S/Nu32S3E5+n+KpCOTb2eRYps6fVKm+9Gz1QBvSePFthb46f063Aa/qe/lykFZ"
   }
 }
 </script>
@@ -21,10 +25,19 @@
 <title>EVA · Asistente virtual de EMALSA</title>
 <meta name="description" content="Demostración del asistente virtual de atención al cliente: qué es, qué responde, qué se mide cada mes y qué puede hacer en el futuro.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cpath d='M60 10C60 10 24 50 24 74a36 36 0 0 0 72 0C96 50 60 10 60 10Z' fill='%23214881'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap">
 <style>
+  /* Outfit servida desde el propio sitio: así no se envía la IP del visitante a
+     Google. Es una fuente variable: un fichero cubre todos los pesos. */
+  @font-face{
+    font-family:Outfit; font-style:normal; font-weight:300 700; font-display:swap;
+    src:url(vendor/fonts/outfit-latin-ext.woff2) format('woff2');
+    unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  @font-face{
+    font-family:Outfit; font-style:normal; font-weight:300 700; font-display:swap;
+    src:url(vendor/fonts/outfit-latin.woff2) format('woff2');
+    unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
   :root{
     --azul:#214881; --azul-medio:#2A72C4; --cian:#2BC8E8;
     --tinta:#0E2238; --cuerpo:#44566B; --gris:#5B6B7F;
@@ -943,7 +956,7 @@
    sigue funcionando: nada más depende de esto.
    ==================================================================== */
 try {
-  const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js');
+  const THREE = await import('./vendor/three.module.js');
 
   const lienzo = document.getElementById('lienzo3d');
   const alto   = document.getElementById('escenaAlto');
@@ -1185,7 +1198,7 @@ try {
 <script type="module">
   // El asistente real, como burbuja flotante: tal cual quedaría en la web
   // de la empresa. Para apuntar a otra versión, cambie el identificador.
-  import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0.10.11/dist/web.js'
+  import Typebot from './vendor/typebot-web.js'
 
   // El isotipo de EVA en blanco, para que el botón no sea un bocadillo genérico.
   const icono = 'data:image/svg+xml;utf8,' + encodeURIComponent(
