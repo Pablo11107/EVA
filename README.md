@@ -51,9 +51,9 @@ scripts en línea autorizados por su hash, y solo conecta con Typebot.
 - que las librerías de `vendor/` coinciden con su huella SRI del `importmap`;
 - que el flujo solo tiene bloques de texto, botones y redirecciones (nada de webhooks, IA, campos
   de texto ni scripts), sin variables, con *Remember user* desactivado y orígenes permitidos acotados;
-- que los botones «Rellenar formulario», «Llamar» y «Escribir por formulario» solo abren páginas de
-  `https://emalsa.es` o llaman a los teléfonos oficiales, y que cada trámite abre el mismo
-  formulario que indica por escrito;
+- que los botones «Llamar» solo llaman a los teléfonos oficiales, que «Rellenar formulario» y
+  «Escribir por formulario» dan un enlace a `https://emalsa.es` (no abren pestañas por su cuenta,
+  que Safari bloquea) y que cada trámite enlaza el mismo formulario que indica por escrito;
 - que las cifras de la portada (pantallas, mensajes, trámites) coinciden con el flujo;
 - que todos los enlaces del flujo van a `https://emalsa.es` y que solo aparecen los teléfonos
   oficiales (928 926 033 y 928 010 334).

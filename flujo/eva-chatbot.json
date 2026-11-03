@@ -15877,14 +15877,6 @@
       },
       "blocks": [
         {
-          "id": "c5jrcfse0vlu9cb3wlpwge4wq",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/contacto/contacto-y-oficinas/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cvkbv5gphttg9d9ymbayy5em8",
           "type": "text",
           "content": {
@@ -15893,7 +15885,7 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario de contacto en una pestaña nueva. Le responderemos lo antes posible."
+                    "text": "Cuéntenos su consulta en el formulario de contacto. Le responderemos lo antes posible."
                   }
                 ]
               },
@@ -15901,19 +15893,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/contacto/contacto-y-oficinas/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/contacto/contacto-y-oficinas/"
+                        "text": "Abrir el formulario de contacto"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -15947,14 +15936,6 @@
       },
       "blocks": [
         {
-          "id": "cj4apmyyyfbufspt7pevhawah",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/domiciliacion-o-cambio-de-domiciliacion/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cgw342gu8a7aueckp30rc8zxj",
           "type": "text",
           "content": {
@@ -15963,27 +15944,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/domiciliacion-o-cambio-de-domiciliacion/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/domiciliacion-o-cambio-de-domiciliacion/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -16027,14 +15997,6 @@
       },
       "blocks": [
         {
-          "id": "c6uah18ji39nr5kxh4rwfbkyp",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/baja-de-domiciliacion/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "czpf8wd27w7ykg1t3mkc95zim",
           "type": "text",
           "content": {
@@ -16043,27 +16005,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/baja-de-domiciliacion/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/baja-de-domiciliacion/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -16107,14 +16058,6 @@
       },
       "blocks": [
         {
-          "id": "ccsimh0f0z0ig7q6xxc5oup5l",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/envio-del-sepa/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "c7eo8syqcge8n0158687i6pqf",
           "type": "text",
           "content": {
@@ -16123,27 +16066,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/envio-del-sepa/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/envio-del-sepa/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -16187,14 +16119,6 @@
       },
       "blocks": [
         {
-          "id": "ccl1v2s0841hbhypghdzz33n3",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/delegacion-de-cambio-de-contador/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cgmj68n8m12bmacb3j7lky8jf",
           "type": "text",
           "content": {
@@ -16203,27 +16127,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/delegacion-de-cambio-de-contador/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/delegacion-de-cambio-de-contador/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -16267,14 +16180,6 @@
       },
       "blocks": [
         {
-          "id": "cb5j5t15eykonh0acxb6cbo1g",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/actualizar-datos-de-contacto/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cqcc4rd4ebrkmvxd7lsgzdbk3",
           "type": "text",
           "content": {
@@ -16283,27 +16188,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/actualizar-datos-de-contacto/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/actualizar-datos-de-contacto/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -16347,14 +16241,6 @@
       },
       "blocks": [
         {
-          "id": "cp574lq1216e64w3b5vq0kk1i",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/solicitud-de-planos/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "ct919xtl4w46uqjg7goit4ac6",
           "type": "text",
           "content": {
@@ -16363,27 +16249,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/solicitud-de-planos/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/solicitud-de-planos/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -16427,14 +16302,6 @@
       },
       "blocks": [
         {
-          "id": "c1o4z3jpqqdkyoxs08ta1oae9",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/comunicar-lectura-de-contador/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cs8iz2bfecubvo1zas2qwdvoa",
           "type": "text",
           "content": {
@@ -16443,27 +16310,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/comunicar-lectura-de-contador/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/comunicar-lectura-de-contador/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -16507,14 +16363,6 @@
       },
       "blocks": [
         {
-          "id": "c89um319ndx2dwuikvk2eilrm",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/solicitud-de-punto-de-conexion-a-la-red-de-alcantarillado/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "caecwa34ws4wktlkv05xdx23u",
           "type": "text",
           "content": {
@@ -16523,27 +16371,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/solicitud-de-punto-de-conexion-a-la-red-de-alcantarillado/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/solicitud-de-punto-de-conexion-a-la-red-de-alcantarillado/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -16587,26 +16424,10 @@
       },
       "blocks": [
         {
-          "id": "cpw79xbgckonuq3uz1tht18co",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "c4e2nqn19cmlyu8zzjrcsmhqt",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -16619,19 +16440,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -16675,26 +16493,10 @@
       },
       "blocks": [
         {
-          "id": "c0xoud5qhnjqwxov7at4dktpn",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "c4268ssjrhhz427pbm9a93b0i",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -16707,19 +16509,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -16763,14 +16562,6 @@
       },
       "blocks": [
         {
-          "id": "cdhqpsxec021b1shk6bvmjdau",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/solicitud-de-permiso-de-conexion-a-la-red-de-alcantarillado-con-presupuesto/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "c77wmdyp6awjgrf8hyao2bh68",
           "type": "text",
           "content": {
@@ -16779,27 +16570,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/solicitud-de-permiso-de-conexion-a-la-red-de-alcantarillado-con-presupuesto/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/solicitud-de-permiso-de-conexion-a-la-red-de-alcantarillado-con-presupuesto/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -16843,14 +16623,6 @@
       },
       "blocks": [
         {
-          "id": "cidg49olz6rzxc2fnxcj2m0s7",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/baja-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cxmn8p70y12rn3125d7z11fk7",
           "type": "text",
           "content": {
@@ -16859,27 +16631,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/baja-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/baja-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -16923,14 +16684,6 @@
       },
       "blocks": [
         {
-          "id": "c81nb8xve2tnlvg3451zwgv1e",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/baja-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cxirwd7ec1wgud9dfupv1g0i2",
           "type": "text",
           "content": {
@@ -16939,27 +16692,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/baja-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/baja-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -17003,14 +16745,6 @@
       },
       "blocks": [
         {
-          "id": "cnyo0d96empukk9txzmivnjql",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/presupuesto-de-traslado-de-acometida/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cfrkxtea17kog7cue9mo03zv2",
           "type": "text",
           "content": {
@@ -17019,27 +16753,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/presupuesto-de-traslado-de-acometida/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/presupuesto-de-traslado-de-acometida/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -17083,14 +16806,6 @@
       },
       "blocks": [
         {
-          "id": "cbx6i0m928z8h6ab8j2vu6dhf",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/presupuesto-de-traslado-de-acometida/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cncmlknvrdio1tbpcmf3lw68l",
           "type": "text",
           "content": {
@@ -17099,27 +16814,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/presupuesto-de-traslado-de-acometida/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/presupuesto-de-traslado-de-acometida/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -17163,14 +16867,6 @@
       },
       "blocks": [
         {
-          "id": "cjpcfcpv5wf8oglcgli6lxms0",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/presupuesto-de-ampliacion-de-cuadro-de-contador/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "czdguwjly267rfvbav7euxpid",
           "type": "text",
           "content": {
@@ -17179,27 +16875,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/presupuesto-de-ampliacion-de-cuadro-de-contador/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/presupuesto-de-ampliacion-de-cuadro-de-contador/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -17243,14 +16928,6 @@
       },
       "blocks": [
         {
-          "id": "ckc7uvgfo3r8hmtust3wulg2y",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/presupuesto-de-ampliacion-de-cuadro-de-contador/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cuozpzbhdsh74qykpybn1smeh",
           "type": "text",
           "content": {
@@ -17259,27 +16936,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/presupuesto-de-ampliacion-de-cuadro-de-contador/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/presupuesto-de-ampliacion-de-cuadro-de-contador/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -17323,14 +16989,6 @@
       },
       "blocks": [
         {
-          "id": "cxhdmqmbpl5286werpmk69sjj",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/solicitud-de-bonificacion/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cpko14yvyro1xivai2om83dwd",
           "type": "text",
           "content": {
@@ -17339,27 +16997,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/solicitud-de-bonificacion/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/solicitud-de-bonificacion/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -17403,14 +17050,6 @@
       },
       "blocks": [
         {
-          "id": "cr3w9p7q3ikk55btvta61o8n9",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/solicitud-de-bonificacion/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cob44g8mmkoq0dz1hm1dl9q5m",
           "type": "text",
           "content": {
@@ -17419,27 +17058,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/solicitud-de-bonificacion/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/solicitud-de-bonificacion/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -17483,14 +17111,6 @@
       },
       "blocks": [
         {
-          "id": "csjb59hp27s44emjuc0stiv09",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cz0bqbzvcg12yyb20es2zxzmz",
           "type": "text",
           "content": {
@@ -17499,27 +17119,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/cambio-de-titularidad/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -17563,14 +17172,6 @@
       },
       "blocks": [
         {
-          "id": "cjxdghk5515bfwoyrbud7w9n9",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cfqu09o4j20qj07g8imwm42zz",
           "type": "text",
           "content": {
@@ -17579,27 +17180,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/cambio-de-titularidad/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -17643,14 +17233,6 @@
       },
       "blocks": [
         {
-          "id": "cv623x445q12gu41wxaapi188",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "coyj9dsc009rwj1203z6ntaxj",
           "type": "text",
           "content": {
@@ -17659,27 +17241,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/cambio-de-titularidad/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -17723,14 +17294,6 @@
       },
       "blocks": [
         {
-          "id": "ctcfk7rax1xffozw8d0hw80w9",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cwfb1mnc84njg5vx0mvq06k73",
           "type": "text",
           "content": {
@@ -17739,27 +17302,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/cambio-de-titularidad/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -17803,14 +17355,6 @@
       },
       "blocks": [
         {
-          "id": "cxlkerlqw1z0zyt557ugq71fy",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cztrghj8b2ii8vfrzn4qpctld",
           "type": "text",
           "content": {
@@ -17819,27 +17363,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/cambio-de-titularidad/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -17883,14 +17416,6 @@
       },
       "blocks": [
         {
-          "id": "c54gi71xubbixu1cuduz7jyno",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "czkgl3848xm9mjd1fo9mjhntu",
           "type": "text",
           "content": {
@@ -17899,27 +17424,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/cambio-de-titularidad/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -17963,14 +17477,6 @@
       },
       "blocks": [
         {
-          "id": "c1ke91g5l6t2mc8br1h6rtgaz",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cnpqnfksyfq4lp7qjrstsw3o0",
           "type": "text",
           "content": {
@@ -17979,27 +17485,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/cambio-de-titularidad/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -18043,14 +17538,6 @@
       },
       "blocks": [
         {
-          "id": "cxd4bvwzqp1xkhp6kmvvvoydc",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cmp3bzhvwbs3ipgrcfwc0xvme",
           "type": "text",
           "content": {
@@ -18059,27 +17546,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/cambio-de-titularidad/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/cambio-de-titularidad/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -18123,26 +17599,10 @@
       },
       "blocks": [
         {
-          "id": "cb12pnelcbg50qj9krabcmspg",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "c9t7trnusrqtdcqr1bdwzgb1h",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -18155,19 +17615,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -18211,26 +17668,10 @@
       },
       "blocks": [
         {
-          "id": "cygbcrqw3m6yzmu9xhcabycdn",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cae8yt44uiwaxep39hcxufopk",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -18243,19 +17684,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -18299,26 +17737,10 @@
       },
       "blocks": [
         {
-          "id": "cc9tm4l9nffxbmtujx5gs91o7",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "ct62gwfgvlqn7hg2akz4d4a8p",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -18331,19 +17753,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -18387,26 +17806,10 @@
       },
       "blocks": [
         {
-          "id": "ckz819mwk6gwyaszkjdna4k5w",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cogzqnq3htarj4wb8honkxp3m",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -18419,19 +17822,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -18475,26 +17875,10 @@
       },
       "blocks": [
         {
-          "id": "c56rx08tx286a5v4iyuvzih24",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "clo2shkdueef0yp7luqcni0di",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -18507,19 +17891,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -18563,26 +17944,10 @@
       },
       "blocks": [
         {
-          "id": "ccvvqc2k3whrozyxyy7u3k3m4",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cvdnjun428mla2hpd4sh1g6id",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -18595,19 +17960,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -18651,26 +18013,10 @@
       },
       "blocks": [
         {
-          "id": "cr95ob549grgop2jizeiplor6",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "crmwizk1iyl09o5feuvvacj0h",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -18683,19 +18029,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -18739,26 +18082,10 @@
       },
       "blocks": [
         {
-          "id": "czc12h1eogq8l1kuf8zwpacbm",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cpr8cwqwjbww4b0xpzrzi517p",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -18771,19 +18098,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -18827,26 +18151,10 @@
       },
       "blocks": [
         {
-          "id": "ce84699wwwmx5mdq5vn1mjxk8",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "ckm1s26banz1y93s0tejkjhbh",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -18859,19 +18167,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -18915,26 +18220,10 @@
       },
       "blocks": [
         {
-          "id": "cr2qm6a2tgs7ge1lwe6cetl89",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cq2j5fs2ga9m0h7vucgyewx4f",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -18947,19 +18236,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -19003,26 +18289,10 @@
       },
       "blocks": [
         {
-          "id": "cdklla6ulytlu4996pq4fkkbz",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "c2dw5lvk3p913q5gg0umg71ht",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -19035,19 +18305,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -19091,26 +18358,10 @@
       },
       "blocks": [
         {
-          "id": "cc803a3ikkqln1tvcrufzle38",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cmxdpdbdhoxs6kk1k6mph99mr",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -19123,19 +18374,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -19179,26 +18427,10 @@
       },
       "blocks": [
         {
-          "id": "co1ob3okq555z0t83auui5ntr",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "c9o3vtbx5x4so384eirojxxy3",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -19211,19 +18443,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -19267,26 +18496,10 @@
       },
       "blocks": [
         {
-          "id": "c797q6fa1i10y09t7q0l76xae",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cjhq39ffpxeo3u0kt531ij8cb",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -19299,19 +18512,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -19355,26 +18565,10 @@
       },
       "blocks": [
         {
-          "id": "cqtzbo8ch22pxeucrpuwu81px",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cumlwzkr5u7gs2p14i7vgezo3",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -19387,19 +18581,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -19443,26 +18634,10 @@
       },
       "blocks": [
         {
-          "id": "chdzmf65dhir8quclviedzow3",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "c9jwe9pwhrogumz88hg0oh9jy",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -19475,19 +18650,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -19531,26 +18703,10 @@
       },
       "blocks": [
         {
-          "id": "crzxxagj0xm2hx22h9vdnx4if",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cnpc3ukhhzki6os4vehiz3jeh",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -19563,19 +18719,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -19619,26 +18772,10 @@
       },
       "blocks": [
         {
-          "id": "c45fudkzm5bc0wgn3808x1mz3",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "cyktihp7j4gtfu9w2gl62dvjz",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -19651,19 +18788,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -19707,26 +18841,10 @@
       },
       "blocks": [
         {
-          "id": "c2fkml7lcuh7u5e1ztxiw9dfl",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "ccn3ttziolv9yq8yp96kvzt34",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -19739,19 +18857,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -19795,26 +18910,10 @@
       },
       "blocks": [
         {
-          "id": "cq07lum0u7h1rurx471vziy6h",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "coeq6fqj16ub1bg3wovq66i9x",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -19827,19 +18926,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -19883,26 +18979,10 @@
       },
       "blocks": [
         {
-          "id": "cquwlyw2puzur7tgpfofvhwto",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "ch2j985c06v3p72hjbl0f4mxe",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -19915,19 +18995,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }
@@ -19971,26 +19048,10 @@
       },
       "blocks": [
         {
-          "id": "czegzs2uuj4av7piqqxcprbbn",
-          "type": "Redirect",
-          "options": {
-            "url": "https://emalsa.es/tramites/alta-de-suministro/",
-            "isNewTab": true
-          }
-        },
-        {
           "id": "c86346kn9d4ec18medifj5fiu",
           "type": "text",
           "content": {
             "richText": [
-              {
-                "type": "p",
-                "children": [
-                  {
-                    "text": "Le he abierto el formulario en una pestaña nueva."
-                  }
-                ]
-              },
               {
                 "type": "p",
                 "children": [
@@ -20003,19 +19064,16 @@
                 "type": "p",
                 "children": [
                   {
-                    "text": "Si no se ha abierto, use este enlace: "
-                  },
-                  {
                     "url": "https://emalsa.es/tramites/alta-de-suministro/",
                     "type": "a",
                     "children": [
                       {
-                        "text": "https://emalsa.es/tramites/alta-de-suministro/"
+                        "text": "Abrir el formulario"
                       }
                     ]
                   },
                   {
-                    "text": "."
+                    "text": " (se abre en una pestaña nueva)."
                   }
                 ]
               }

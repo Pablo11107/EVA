@@ -66,6 +66,16 @@ BLOQUES = {b["id"]: b for g in FLUJO["groups"] for b in g["blocks"]}
 REDIRECCIONES = {b["options"]["url"] for b in BLOQUES.values() if b["type"] == "Redirect"}
 
 
+def enlaces(respuesta):
+    """URLs de los enlaces que muestran los mensajes de esta respuesta."""
+    def recorrer(nodos):
+        for n in nodos or []:
+            if n.get("type") == "a":
+                yield n["url"]
+            yield from recorrer(n.get("children"))
+    return [u for m in respuesta.get("messages", []) for u in recorrer(m.get("content", {}).get("richText"))]
+
+
 def redirecciones(respuesta):
     """URLs que el bot ordena abrir al navegador en esta respuesta."""
     return [a["redirect"]["url"] for a in respuesta.get("clientSideActions") or [] if "redirect" in a]
@@ -193,28 +203,32 @@ class BotPublicado(unittest.TestCase):
             self.assertSoloContenidoDelFlujo(r)
         return r
 
-    def test_rellenar_formulario_abre_el_del_caso(self):
+    def test_rellenar_formulario_enlaza_el_del_caso(self):
         r = self.recorrer("Trámites", "Contrato", "Cambio de titular", "Vivienda", "Propietario",
                           "Rellenar formulario")
-        self.assertEqual(redirecciones(r), ["https://emalsa.es/tramites/cambio-de-titularidad/"])
+        # Enlace que pulsa el cliente, no una pestaña que abre el bot (Safari la bloquearía).
+        self.assertEqual(redirecciones(r), [])
+        self.assertEqual(enlaces(r), ["https://emalsa.es/tramites/cambio-de-titularidad/"])
         self.assertEqual([i["content"] for i in r["input"]["items"]],
                          ["Otra gestión", "Hablar con alguien", "Menú principal", "Finalizar"])
 
     def test_formulario_recuerda_la_opcion_del_desplegable(self):
         r = self.recorrer("Trámites", "Contrato", "Alta de suministro", "Nunca ha tenido agua", "Vivienda",
                           "Propietario", "Rellenar formulario")
-        self.assertEqual(redirecciones(r), ["https://emalsa.es/tramites/alta-de-suministro/"])
+        self.assertEqual(enlaces(r), ["https://emalsa.es/tramites/alta-de-suministro/"])
         texto = " ".join(rich_a_texto(m["content"]["richText"]) for m in r["messages"])
         self.assertIn("En el desplegable del formulario seleccione", texto)
 
     def test_llamar_y_escribir_desde_hablar_con_alguien(self):
         casos = {"Llamar a atención al cliente (928 926 033)": "tel:+34928926033",
-                 "Llamar a averías (928 010 334)": "tel:+34928010334",
-                 "Escribir por formulario": "https://emalsa.es/contacto/contacto-y-oficinas/"}
+                 "Llamar a averías (928 010 334)": "tel:+34928010334"}
         for boton, url in casos.items():
             with self.subTest(boton=boton):
                 r = self.recorrer("Hablar con alguien", boton)
                 self.assertEqual(redirecciones(r), [url])
+        r = self.recorrer("Hablar con alguien", "Escribir por formulario")
+        self.assertEqual(redirecciones(r), [])
+        self.assertEqual(enlaces(r), ["https://emalsa.es/contacto/contacto-y-oficinas/"])
 
     def test_origen_no_permitido_rechazado(self):
         estado, r = peticion(f"/typebots/{BOT}/startChat", {}, origen="https://evil.example")

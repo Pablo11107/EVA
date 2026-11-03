@@ -156,8 +156,8 @@ class BotonesDeRedireccion(Base):
     def test_redireccion_sin_opciones_bloqueada(self):
         self.assertBloquea(anadir_bloque(flujo(), {"id": "x", "type": "Redirect"}), "redirección no permitida")
 
-    def test_cada_tramite_abre_el_formulario_que_indica(self):
-        """«Rellenar formulario» abre la misma URL que la respuesta da por escrito."""
+    def test_cada_tramite_enlaza_el_formulario_que_indica(self):
+        """«Rellenar formulario» lleva a un enlace a la misma URL que la respuesta da por escrito."""
         aristas = {e["id"]: e for e in FLUJO["edges"]}
         grupos = {g["id"]: g for g in FLUJO["groups"]}
         revisados = 0
@@ -170,11 +170,22 @@ class BotonesDeRedireccion(Base):
                          and json.dumps(b, ensure_ascii=False).find("Dónde presentar la solicitud") >= 0)
             escrita = next(x["url"] for x in _enlaces(donde["content"]["richText"]) if x["url"].startswith("https://"))
             destino = grupos[aristas[boton["outgoingEdgeId"]]["to"]["groupId"]]
+            enlaces = [x["url"] for b in destino["blocks"] if b["type"] == "text"
+                       for x in _enlaces(b["content"]["richText"])]
             with self.subTest(tramite=g["title"]):
-                self.assertEqual(destino["blocks"][0]["type"], "Redirect")
-                self.assertEqual(destino["blocks"][0]["options"]["url"], escrita)
+                self.assertEqual(enlaces, [escrita])
             revisados += 1
         self.assertEqual(revisados, 49)
+
+    def test_ninguna_pagina_se_abre_sin_que_el_cliente_pulse(self):
+        """Safari bloquea las pestañas que abre el bot por su cuenta: los formularios van
+        como enlace y las redirecciones automáticas quedan solo para llamar."""
+        for g in FLUJO["groups"]:
+            for b in g["blocks"]:
+                if b["type"] == "Redirect":
+                    with self.subTest(grupo=g["title"]):
+                        self.assertTrue(b["options"]["url"].startswith("tel:"))
+                        self.assertFalse(b["options"].get("isNewTab"))
 
 
 def _enlaces(nodos):
