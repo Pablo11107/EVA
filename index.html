@@ -5,7 +5,7 @@
 <!-- Seguridad. GitHub Pages no permite cabeceras propias, así que la política va
      aquí. Los scripts en línea se autorizan por su hash: si se cambia uno, ejecute
      `python3 scripts/verificar.py --actualizar-csp` o el navegador lo bloqueará. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-gTlvXqMZjEExzHomwwXNOhQQcDxzCbvoqjFMIW5102c=' 'sha256-j1cBPmyMFnr6siCE9ktjA4/IIP3wbp9Wmt4EfOpxzl0=' 'sha256-KJVFPqbclVB5AhF/M83qf0YejyfAha/BCW7FFUBO7mo=' 'sha256-U8uVYJ3mBRCItMI6bxfsmINZmV6UPOlFXK6N2BygxoY='; style-src 'unsafe-inline' https://fonts.bunny.net; font-src 'self' https://fonts.bunny.net; img-src 'self' data: blob: https://typebot.io https://*.typebot.io; connect-src https://typebot.io https://*.typebot.io; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-gTlvXqMZjEExzHomwwXNOhQQcDxzCbvoqjFMIW5102c=' 'sha256-Jn018oIA5n8G+QVfBz/8bHEPspLWvFYo97qLH9zhwHU=' 'sha256-KJVFPqbclVB5AhF/M83qf0YejyfAha/BCW7FFUBO7mo=' 'sha256-U8uVYJ3mBRCItMI6bxfsmINZmV6UPOlFXK6N2BygxoY='; style-src 'unsafe-inline' https://fonts.bunny.net; font-src 'self' https://fonts.bunny.net; img-src 'self' data: blob: https://typebot.io https://*.typebot.io; connect-src https://typebot.io https://*.typebot.io; media-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- La página es una demostración: que no la indexen los buscadores, para que nadie
      la confunda con un canal oficial. -->
@@ -314,6 +314,61 @@
   .nota h4{font-size:17px; margin-bottom:5px}
   .nota p{font-size:15.5px}
   .pie-precios{font-size:14px; color:var(--gris); margin-top:26px}
+  /* ---------- recorrido en vídeo ---------- */
+  .recorrido{display:grid; grid-template-columns:1fr 330px; gap:64px; align-items:center}
+  @media(max-width:900px){.recorrido{grid-template-columns:1fr; gap:36px}}
+  .pasos-video{list-style:none; margin:30px 0 0; padding:0; display:flex; flex-direction:column; gap:18px; counter-reset:pv}
+  .pasos-video li{display:grid; grid-template-columns:30px 1fr; gap:16px; align-items:start; counter-increment:pv; font-size:16.5px}
+  .pasos-video li::before{content:counter(pv); width:30px; height:30px; border-radius:50%; background:var(--azul); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:600}
+  .pasos-video strong{color:var(--tinta)}
+  .marco-video{width:100%; max-width:330px; margin:0 auto; border-radius:34px; padding:9px; background:#0E2238;
+    box-shadow:0 26px 60px rgba(14,34,56,.28)}
+  .marco-video video{display:block; width:100%; height:auto; border-radius:26px; background:#0B1B32; aspect-ratio:390/844}
+  .pie-video{font-size:14px; color:var(--gris); margin-top:14px; text-align:center}
+  /* ---------- antes y después ---------- */
+  .comparativa{background:#fff; border:1px solid var(--borde); border-radius:var(--radio); overflow:hidden}
+  .comparativa .fila{display:grid; grid-template-columns:200px 1fr 1fr; border-top:1px solid var(--borde)}
+  .comparativa .fila:first-child{border-top:0}
+  .comparativa .fila > div{padding:20px 24px; font-size:15.5px}
+  .comparativa .cab > div{font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--gris);
+    padding-top:16px; padding-bottom:16px; background:#FAFBFD}
+  .comparativa .cab .eva{color:var(--azul)}
+  .comparativa .aspecto{font-weight:600; color:var(--tinta)}
+  .comparativa .con-eva{background:#F2F8FD; color:#1C2B3A}
+  .comparativa .cab .con-eva{background:#EAF2FB}
+  .comparativa .et{display:none}
+  @media(max-width:760px){
+    .comparativa .cab{display:none}
+    .comparativa .fila{grid-template-columns:1fr}
+    .comparativa .fila > div{padding:12px 20px}
+    .comparativa .aspecto{padding-top:20px}
+    .comparativa .et{display:block; font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--gris); margin-bottom:4px}
+    .comparativa .con-eva .et{color:var(--azul)}
+  }
+  .pie-comparativa{font-size:14.5px; color:var(--gris); margin-top:20px; max-width:52em}
+  /* ---------- calculadora de ahorro ---------- */
+  .calc{display:grid; grid-template-columns:1.15fr .85fr; gap:28px; align-items:start}
+  @media(max-width:900px){.calc{grid-template-columns:1fr}}
+  .calc-datos{background:#fff; border:1px solid var(--borde); border-radius:var(--radio); padding:30px 30px 10px}
+  .campo{padding-bottom:24px}
+  .campo .fila-et{display:flex; justify-content:space-between; align-items:baseline; gap:14px}
+  .campo label{font-weight:600; color:var(--tinta); font-size:16px}
+  .campo output{font-weight:700; color:var(--azul); font-size:18px; font-variant-numeric:tabular-nums; white-space:nowrap}
+  .campo .ayuda{font-size:14px; color:var(--gris); margin-top:2px}
+  .campo input[type=range]{width:100%; margin-top:12px; accent-color:var(--azul)}
+  .campo input[type=number]{margin-top:10px; width:140px; font:inherit; font-size:16px; color:var(--tinta);
+    padding:9px 12px; border:1px solid var(--borde); border-radius:10px}
+  .calc-resultado{background:linear-gradient(160deg,#0B1B32,#12304F); color:#B9C9DD; border-radius:var(--radio); padding:30px}
+  .calc-resultado h3{color:#fff; font-size:19px; margin-bottom:20px}
+  .res{padding:16px 0; border-top:1px solid rgba(255,255,255,.14)}
+  .res .n{font-size:clamp(28px,3.4vw,36px); font-weight:700; color:#fff; line-height:1.1; font-variant-numeric:tabular-nums}
+  .res .t{font-size:14.5px; margin-top:6px}
+  .res.total .n{color:var(--cian); font-size:clamp(34px,4.2vw,46px)}
+  .desglose{font-size:14px; color:#8FA9C6; margin-top:4px; font-variant-numeric:tabular-nums}
+  .aviso-plan{font-size:14px; color:#FBE3A6; margin-top:14px}
+  .pie-calc{font-size:14px; color:var(--gris); margin-top:20px; max-width:52em}
   /* ---------- probar ---------- */
   #probar .marco{background:#fff; border:1px solid var(--borde); border-radius:var(--radio);
     padding:40px 44px; box-shadow:0 18px 44px rgba(14,34,56,.10);
@@ -401,6 +456,7 @@
       <a href="#futuro">Futuro</a>
       <a href="#seguridad">Seguridad</a>
       <a href="#soporte">Soporte</a>
+      <a href="#ahorro">Ahorro</a>
       <a href="#probar">Probarlo</a>
     </nav>
   </div>
@@ -464,6 +520,33 @@
       <div class="escena-pista">
         <span class="puntos" id="puntos"><i></i><i></i><i></i></span>
         Mueva el ratón · siga bajando
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RECORRIDO EN VÍDEO ============ -->
+<section id="recorrido" class="claro">
+  <div class="wrap">
+    <div class="recorrido">
+      <div class="rv">
+        <span class="rotulo" style="display:block; margin-bottom:14px">En un minuto</span>
+        <h2>Así se usa EVA, de principio a fin</h2>
+        <p class="entradilla">Grabado con el asistente real en un móvil: el alta de suministro de una vivienda, desde la primera pregunta hasta el formulario, y después las formas de hablar con una persona.</p>
+        <ol class="pasos-video">
+          <li><p><strong>Elige su caso con botones.</strong> Seis toques, sin escribir nada.</p></li>
+          <li><p><strong>Recibe la documentación de su caso</strong>, lo que conviene saber y dónde presentarlo.</p></li>
+          <li><p><strong>Abre el formulario exacto</strong>, con la opción del desplegable que le corresponde.</p></li>
+          <li><p><strong>Si lo necesita, habla con alguien:</strong> atención al cliente, averías o por escrito.</p></li>
+        </ol>
+      </div>
+      <div class="rv">
+        <div class="marco-video">
+          <video id="videoRecorrido" src="media/recorrido-eva.mp4" poster="media/recorrido-eva.jpg"
+            muted playsinline loop preload="metadata" controls
+            aria-label="Vídeo: recorrido por EVA en un móvil, de la primera pregunta al formulario de alta de suministro"></video>
+        </div>
+        <p class="pie-video">56 segundos, sin sonido</p>
       </div>
     </div>
   </div>
@@ -657,6 +740,50 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============ ANTES Y DESPUÉS ============ -->
+<section id="comparativa" class="claro">
+  <div class="wrap">
+    <div class="cabecera-seccion rv">
+      <span class="rotulo">Antes y después</span>
+      <h2>Los mismos requisitos, cuando hacen falta</h2>
+      <p class="entradilla">Un caso real comparado en emalsa.es: el alta de suministro de una vivienda, presentada por el propietario. Los documentos que se piden son exactamente los mismos. Lo que cambia es cuándo y cómo los conoce el cliente.</p>
+    </div>
+    <div class="comparativa rv" role="table" aria-label="Comparativa entre la web actual y EVA">
+      <div class="fila cab" role="row">
+        <div role="columnheader"></div>
+        <div role="columnheader">En la web hoy</div>
+        <div role="columnheader" class="con-eva eva">Con EVA</div>
+      </div>
+      <div class="fila" role="row">
+        <div class="aspecto" role="rowheader">Para empezar</div>
+        <div role="cell"><span class="et">En la web hoy</span>Ir a Trámites y elegir «Alta de suministro». La página es directamente el formulario.</div>
+        <div role="cell" class="con-eva"><span class="et">Con EVA</span>Pulsar el botón de la esquina, desde cualquier página.</div>
+      </div>
+      <div class="fila" role="row">
+        <div class="aspecto" role="rowheader">Elegir el tipo de alta</div>
+        <div role="cell"><span class="et">En la web hoy</span>Un desplegable con 8 opciones, como «Alta de contador en viviendas locales, zonas comunes y cuartos de apero (primera contratación)».</div>
+        <div role="cell" class="con-eva"><span class="et">Con EVA</span>Una pregunta sencilla: «¿En qué situación se encuentra el inmueble?», y la respuesta «Nunca ha tenido agua».</div>
+      </div>
+      <div class="fila" role="row">
+        <div class="aspecto" role="rowheader">Saber qué documentos aportar</div>
+        <div role="cell"><span class="et">En la web hoy</span>Aparecen dentro del formulario, después de 9 campos de datos personales y bancarios y de elegir tipo de alta, inmueble y condición.</div>
+        <div role="cell" class="con-eva"><span class="et">Con EVA</span>Antes de empezar, junto con lo que conviene saber: el pago, las deudas pendientes, las excepciones.</div>
+      </div>
+      <div class="fila" role="row">
+        <div class="aspecto" role="rowheader">Rellenar el formulario</div>
+        <div role="cell"><span class="et">En la web hoy</span>El cliente tiene que acertar con la opción que corresponde a su caso.</div>
+        <div role="cell" class="con-eva"><span class="et">Con EVA</span>Le dice qué opción elegir en el desplegable y le da el enlace al formulario.</div>
+      </div>
+      <div class="fila" role="row">
+        <div class="aspecto" role="rowheader">Si tiene dudas</div>
+        <div role="cell"><span class="et">En la web hoy</span>Los teléfonos de atención al cliente, en la página de trámites.</div>
+        <div role="cell" class="con-eva"><span class="et">Con EVA</span>Botones para llamar a atención al cliente o a averías, o para escribir.</div>
+      </div>
+    </div>
+    <p class="pie-comparativa rv">En los dos casos se piden los mismos cuatro documentos: DNI o CIF, escritura o nota simple, cédula de habitabilidad y boletín de instalación. EVA no cambia los requisitos: los adelanta. Comprobado en emalsa.es el 3 de noviembre de 2026.</p>
   </div>
 </section>
 
@@ -896,7 +1023,7 @@
 </section>
 
 <!-- ============ SOPORTE ============ -->
-<section id="soporte" class="claro">
+<section id="soporte">
   <div class="wrap">
     <div class="cabecera-seccion rv">
       <span class="rotulo">Soporte y costes</span>
@@ -970,6 +1097,54 @@
       </div>
     </div>
     <p class="pie-precios rv">Tarifas publicadas por Typebot, en dólares. Conviene confirmarlas en su web antes de contratar.</p>
+  </div>
+</section>
+
+<!-- ============ AHORRO ============ -->
+<section id="ahorro" class="claro">
+  <div class="wrap">
+    <div class="cabecera-seccion rv">
+      <span class="rotulo">Ahorro estimado</span>
+      <h2>¿Cuánto tiempo les devolvería EVA?</h2>
+      <p class="entradilla">Ponga sus cifras: cuántas llamadas reciben, qué parte podría resolver el asistente y cuánto cuesta atenderlas. El resultado se calcula al momento.</p>
+    </div>
+    <div class="calc rv">
+      <form class="calc-datos" id="calculadora">
+        <div class="campo">
+          <div class="fila-et"><label for="cLlamadas">Llamadas al mes a atención al cliente</label><output for="cLlamadas" id="oLlamadas"></output></div>
+          <input type="range" id="cLlamadas" min="200" max="20000" step="100" value="3000">
+        </div>
+        <div class="campo">
+          <div class="fila-et"><label for="cPct">Parte que podría resolver EVA</label><output for="cPct" id="oPct"></output></div>
+          <p class="ayuda">Consultas de información y trámites que hoy acaban en una llamada.</p>
+          <input type="range" id="cPct" min="5" max="70" step="1" value="25">
+        </div>
+        <div class="campo">
+          <div class="fila-et"><label for="cMin">Duración media de una llamada</label><output for="cMin" id="oMin"></output></div>
+          <input type="range" id="cMin" min="2" max="15" step="1" value="5">
+        </div>
+        <div class="campo">
+          <div class="fila-et"><label for="cHora">Coste de una hora de atención</label><output for="cHora" id="oHora"></output></div>
+          <p class="ayuda">Salario y cargas sociales de una persona del equipo.</p>
+          <input type="range" id="cHora" min="12" max="45" step="1" value="22">
+        </div>
+        <div class="campo">
+          <label for="cPlan">Coste mensual de Typebot, en euros</label>
+          <p class="ayuda">Starter cuesta 39 $ al mes y Pro, 89 $.</p>
+          <input type="number" id="cPlan" min="0" max="2000" step="1" value="40" inputmode="numeric">
+        </div>
+      </form>
+      <div class="calc-resultado" aria-live="polite">
+        <h3>Cada mes</h3>
+        <div class="res"><div class="n" id="rLlamadas"></div><div class="t">llamadas que resolvería EVA</div></div>
+        <div class="res"><div class="n" id="rHoras"></div><div class="t">horas de atención liberadas</div></div>
+        <div class="res total"><div class="n" id="rNeto"></div><div class="t">ahorro neto al mes</div>
+          <div class="desglose" id="rDesglose"></div></div>
+        <div class="res"><div class="n" id="rAnual"></div><div class="t">ahorro neto al año</div></div>
+        <p class="aviso-plan" id="rAviso" hidden>Cada llamada evitada es al menos una conversación: con más de 2.000 al mes, Starter cobra 10 $ por cada 500 más o conviene el plan Pro.</p>
+      </div>
+    </div>
+    <p class="pie-calc rv">Estimación orientativa. Las cifras iniciales son un ejemplo, no datos de EMALSA: cámbielas por las suyas. No incluye el tiempo de puesta en marcha ni de mantenimiento del contenido.</p>
   </div>
 </section>
 
@@ -1148,6 +1323,49 @@
   }, {passive:true});
   window.addEventListener('resize', alDesplazar);
   alDesplazar();
+
+  /* ---------- calculadora de ahorro ---------- */
+  function euros(n){
+    var r = Math.round(n);
+    return (r < 0 ? '−' : '') + miles(Math.abs(r)) + ' €';
+  }
+  function valor(id){ var v = parseFloat(document.getElementById(id).value); return isNaN(v) ? 0 : v; }
+  function texto(id, t){ var el = document.getElementById(id); if(el) el.textContent = t; }
+  function calcular(){
+    var llamadas = valor('cLlamadas'), pct = valor('cPct'), min = valor('cMin'), hora = valor('cHora'), plan = valor('cPlan');
+    var evitadas = llamadas * pct / 100;
+    var horas = evitadas * min / 60;
+    var bruto = horas * hora;
+    var neto = bruto - plan;
+    texto('oLlamadas', miles(llamadas));
+    texto('oPct', pct + ' %');
+    texto('oMin', min + ' min');
+    texto('oHora', hora + ' €');
+    texto('rLlamadas', miles(Math.round(evitadas)));
+    texto('rHoras', miles(Math.round(horas)) + ' h');
+    texto('rNeto', euros(neto));
+    texto('rDesglose', euros(bruto) + ' de atención − ' + euros(plan) + ' de Typebot');
+    texto('rAnual', euros(neto * 12));
+    var aviso = document.getElementById('rAviso');
+    if(aviso) aviso.hidden = evitadas <= 2000;
+  }
+  var calc = document.getElementById('calculadora');
+  if(calc){
+    calc.addEventListener('input', calcular);
+    calc.addEventListener('submit', function(e){ e.preventDefault(); });
+    calcular();
+  }
+
+  /* ---------- vídeo del recorrido: se reproduce al verlo ---------- */
+  var video = document.getElementById('videoRecorrido');
+  if(video && !reducido && 'IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){ var pr = video.play(); if(pr && pr.catch) pr.catch(function(){}); }
+        else video.pause();
+      });
+    }, {threshold:.5}).observe(video);
+  }
 })();
 </script>
 

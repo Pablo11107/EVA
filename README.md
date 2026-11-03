@@ -12,6 +12,8 @@ Publicada en GitHub Pages: https://pablo11107.github.io/EVA/ (marcada `noindex`:
 | `vendor/typebot-web.js` | `@typebot.io/js` 0.10.11, la burbuja del asistente |
 | `vendor/fonts/` | Fuente Outfit (licencia OFL, en `OFL.txt`) |
 | `flujo/eva-chatbot.json` | Exportación del flujo de Typebot que está publicado |
+| `docs/informe-seguridad-eva.pdf` | Informe de seguridad, enlazado desde la sección «Seguridad» |
+| `media/recorrido-eva.mp4` | Vídeo del recorrido (grabado con el bot real) y su portada |
 | `scripts/verificar.py` | Comprobaciones de seguridad (ver más abajo) |
 | `tests/` | Pruebas de seguridad de IA: sin conexión (CI) y contra el bot real |
 | `.github/workflows/verificar.yml` | Ejecuta el verificador y las pruebas en cada push |

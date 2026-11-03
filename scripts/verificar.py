@@ -104,6 +104,9 @@ def verificar_pagina(html, raiz=RAIZ):
             errores.append(f"script-src no debe permitir {f}: las librerías se sirven desde vendor/")
     if csp.get("default-src") != ["'none'"]:
         errores.append("la CSP debe empezar por default-src 'none'")
+    # La CSP bloquea los manejadores en línea (onclick="…") sin avisar: la página dejaría de funcionar.
+    for m in re.finditer(r"<[a-zA-Z][^>]*\s(on[a-z]+)\s*=", RE_SCRIPT.sub("", html)):
+        errores.append(f"manejador de eventos en línea «{m.group(1)}»: la CSP lo bloquea; use addEventListener")
 
     # Huellas SRI de las librerías propias.
     mapa = re.search(r'<script type="importmap">(.*?)</script>', html, re.S)
