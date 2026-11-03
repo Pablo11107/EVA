@@ -254,9 +254,15 @@
 
   /* ---------- probar ---------- */
   #probar .marco{background:#fff; border:1px solid var(--borde); border-radius:var(--radio);
-    padding:14px; box-shadow:0 18px 44px rgba(14,34,56,.10)}
-  typebot-standard{width:100%; height:620px; border-radius:10px; overflow:hidden; display:block}
-  .sin-bot{padding:40px 28px; text-align:center; color:var(--gris); font-size:16px}
+    padding:40px 44px; box-shadow:0 18px 44px rgba(14,34,56,.10);
+    display:flex; align-items:center; justify-content:space-between; gap:40px; flex-wrap:wrap}
+  .abrir{display:inline-flex; align-items:center; gap:12px; background:var(--azul); color:#fff;
+    border:0; font-family:inherit; font-size:17px; font-weight:600; padding:15px 28px;
+    border-radius:12px; cursor:pointer; transition:transform .25s ease, box-shadow .25s ease}
+  .abrir:hover{transform:translateY(-2px); box-shadow:0 10px 26px rgba(33,72,129,.3)}
+  .flecha{display:flex; align-items:center; gap:14px; color:var(--gris); font-size:15px}
+  .flecha svg{color:var(--azul-medio); animation:senalar 2.2s ease-in-out infinite}
+  @keyframes senalar{0%,100%{transform:translate(0,0)}50%{transform:translate(5px,5px)}}
 
   /* ---------- cierre ---------- */
   #cierre{background:linear-gradient(160deg,#0B1B32,#10294A); color:#B9C9DD; text-align:center}
@@ -738,11 +744,27 @@
     <div class="cabecera-seccion rv">
       <span class="rotulo">Pruébelo</span>
       <h2>El asistente real, aquí mismo</h2>
-      <p class="entradilla">No es un vídeo ni una maqueta: es el asistente funcionando. Pruebe a buscar la documentación de un cambio de titularidad, o a dar un aviso de falta de agua.</p>
+      <p class="entradilla">No es un vídeo ni una maqueta: es el asistente funcionando, montado exactamente como quedaría en emalsa.es. Pruebe a buscar la documentación de un cambio de titularidad, o a dar un aviso de falta de agua.</p>
     </div>
     <div class="marco rv">
-      <typebot-standard id="bot"></typebot-standard>
-      <noscript><p class="sin-bot">Active JavaScript para probar el asistente.</p></noscript>
+      <div>
+        <h3 style="font-size:21px; margin-bottom:10px">El botón vive en la esquina</h3>
+        <p style="font-size:16px; max-width:30em">Igual que en cualquier página de la web: discreto, siempre a mano y sin estorbar al contenido. Ábralo desde ahí o desde aquí.</p>
+      </div>
+      <div style="display:flex; align-items:center; gap:28px; flex-wrap:wrap">
+        <span class="flecha">
+          Abajo a la derecha
+          <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 6l12 12M18 10v8h-8"/>
+          </svg>
+        </span>
+        <button class="abrir" type="button" id="abrirBot">
+          <svg width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l.9-4.4A8 8 0 1 1 20 12Z"/>
+          </svg>
+          Hablar con EVA
+        </button>
+      </div>
     </div>
   </div>
 </section>
@@ -1146,13 +1168,45 @@ try {
 </script>
 
 <script type="module">
-  // El asistente real, incrustado desde el CDN de Typebot.
-  // Para apuntar a otra versión del bot, cambie el identificador público.
+  // El asistente real, como burbuja flotante: tal cual quedaría en la web
+  // de la empresa. Para apuntar a otra versión, cambie el identificador.
   import Typebot from 'https://cdn.jsdelivr.net/npm/@typebot.io/js@0/dist/web.js'
-  Typebot.initStandard({
-    typebot: "emalsa-atenci-n-al-cliente-v4-ajzk439",
-    id: "bot"
+
+  // El isotipo de EVA en blanco, para que el botón no sea un bocadillo genérico.
+  const icono = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">' +
+    '<path d="M60 10C60 10 24 50 24 74a36 36 0 0 0 72 0C96 50 60 10 60 10Z" fill="#ffffff"/>' +
+    '<rect x="40" y="58" width="40" height="7" rx="3.5" fill="#214881"/>' +
+    '<rect x="34" y="72" width="52" height="7" rx="3.5" fill="#214881"/>' +
+    '<rect x="44" y="86" width="32" height="7" rx="3.5" fill="#214881"/></svg>'
+  );
+
+  // El mismo isotipo en azul: el del botón es blanco y en el mensaje de
+  // invitación, que va sobre fondo claro, no se vería.
+  const iconoAzul = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">' +
+    '<path d="M60 10C60 10 24 50 24 74a36 36 0 0 0 72 0C96 50 60 10 60 10Z" fill="#214881"/>' +
+    '<rect x="40" y="58" width="40" height="7" rx="3.5" fill="#ffffff"/>' +
+    '<rect x="34" y="72" width="52" height="7" rx="3.5" fill="#ffffff"/>' +
+    '<rect x="44" y="86" width="32" height="7" rx="3.5" fill="#ffffff"/></svg>'
+  );
+
+  Typebot.initBubble({
+    typebot: "eva-asistente-virtual-de-emalsa-zl3qrh4",
+    theme: {
+      button: { backgroundColor: "#214881", customIconSrc: icono },
+      chatWindow: { backgroundColor: "#FFFFFF" },
+    },
+    previewMessage: {
+      message: "Hola, soy EVA. ¿Le ayudo con algún trámite?",
+      autoShowDelay: 6000,
+      avatarUrl: iconoAzul,
+    },
   });
+
+  // El botón de la sección «Pruébelo» abre la misma burbuja.
+  const abrir = document.getElementById('abrirBot');
+  if (abrir) abrir.addEventListener('click', () => Typebot.open());
 </script>
 
 </body>
