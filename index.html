@@ -5,7 +5,7 @@
 <!-- Seguridad. GitHub Pages no permite cabeceras propias, así que la política va
      aquí. Los scripts en línea se autorizan por su hash: si se cambia uno, ejecute
      `python3 scripts/verificar.py --actualizar-csp` o el navegador lo bloqueará. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-gTlvXqMZjEExzHomwwXNOhQQcDxzCbvoqjFMIW5102c=' 'sha256-j1cBPmyMFnr6siCE9ktjA4/IIP3wbp9Wmt4EfOpxzl0=' 'sha256-KJVFPqbclVB5AhF/M83qf0YejyfAha/BCW7FFUBO7mo=' 'sha256-XIaZT1uEENZKwN39jpvBYQPyLxZIQilolJRXVoiKQ+o='; style-src 'unsafe-inline' https://fonts.bunny.net; font-src 'self' https://fonts.bunny.net; img-src 'self' data: blob: https://typebot.io https://*.typebot.io; connect-src https://typebot.io https://*.typebot.io; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-gTlvXqMZjEExzHomwwXNOhQQcDxzCbvoqjFMIW5102c=' 'sha256-j1cBPmyMFnr6siCE9ktjA4/IIP3wbp9Wmt4EfOpxzl0=' 'sha256-KJVFPqbclVB5AhF/M83qf0YejyfAha/BCW7FFUBO7mo=' 'sha256-U8uVYJ3mBRCItMI6bxfsmINZmV6UPOlFXK6N2BygxoY='; style-src 'unsafe-inline' https://fonts.bunny.net; font-src 'self' https://fonts.bunny.net; img-src 'self' data: blob: https://typebot.io https://*.typebot.io; connect-src https://typebot.io https://*.typebot.io; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <!-- La página es una demostración: que no la indexen los buscadores, para que nadie
      la confunda con un canal oficial. -->
@@ -400,7 +400,7 @@
     </div>
     <span class="etiqueta">Demostración del servicio</span>
     <h1>Las consultas de siempre, resueltas <em>a cualquier hora</em>.</h1>
-    <p class="sub">EVA responde en la web y en WhatsApp las consultas de siempre —qué documentación hace falta, dónde se presenta, a qué teléfono llamar— a cualquier hora y solo con información que ustedes han validado.</p>
+    <p class="sub">EVA responde en la web —y pronto en WhatsApp— las consultas de siempre —qué documentación hace falta, dónde se presenta, a qué teléfono llamar— a cualquier hora y solo con información que ustedes han validado.</p>
     <div class="cue">
       <span class="raton" aria-hidden="true"></span>
       Baje: el agua se convierte en conversación
@@ -717,7 +717,7 @@
     <div style="margin-top:62px">
       <h3 class="rv" style="font-size:24px; margin-bottom:6px">Los seis apartados del informe</h3>
       <div class="lista-informe">
-        <div class="li rv"><span class="nn">01</span><div><h4>Uso del servicio</h4><p>Conversaciones iniciadas y completadas, tasa de finalización, reparto entre web y WhatsApp y consultas fuera de horario. Si el uso es bajo, el problema es de visibilidad, no de contenido.</p></div></div>
+        <div class="li rv"><span class="nn">01</span><div><h4>Uso del servicio</h4><p>Conversaciones iniciadas y completadas, tasa de finalización, reparto por canal (web y, cuando se active, WhatsApp) y consultas fuera de horario. Si el uso es bajo, el problema es de visibilidad, no de contenido.</p></div></div>
         <div class="li rv"><span class="nn">02</span><div><h4>Resolución</h4><p>Cuántas consultas se resolvieron sin intervención, cuántas se derivaron, dónde se abandona y la estimación de llamadas evitadas, siempre con el supuesto de cálculo escrito al lado.</p></div></div>
         <div class="li rv"><span class="nn">03</span><div><h4>Qué consultan sus clientes</h4><p>El ranking de temas, el reparto por áreas y —lo que más sorprende— los temas que no consulta nadie pese a estar destacados en la web.</p></div></div>
         <div class="li rv"><span class="nn">04</span><div><h4>Dónde se atasca la gente</h4><p>Cada punto del recorrido donde se concentran los abandonos, cuántos son y la hipótesis de por qué. Es la sección más útil del informe.</p></div></div>
@@ -1219,17 +1219,21 @@ try {
     '<rect x="44" y="86" width="32" height="7" rx="3.5" fill="#ffffff"/></svg>'
   );
 
+  // En el móvil, la invitación taparía el contenido hasta que se cerrara:
+  // allí basta con el botón.
+  const escritorio = window.matchMedia('(min-width: 720px)').matches;
+
   Typebot.initBubble({
     typebot: "eva-asistente-virtual-de-emalsa-oi2fy0m",
     theme: {
       button: { backgroundColor: "#214881", customIconSrc: icono },
       chatWindow: { backgroundColor: "#FFFFFF" },
     },
-    previewMessage: {
+    previewMessage: escritorio ? {
       message: "Hola, soy EVA. ¿Le ayudo con algún trámite?",
       autoShowDelay: 6000,
       avatarUrl: iconoAzul,
-    },
+    } : undefined,
   });
 
   // El botón de la sección «Pruébelo» abre la misma burbuja.

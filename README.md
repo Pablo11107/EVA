@@ -87,6 +87,39 @@ a devolver un identificador de una lista cerrada, validado en el servidor antes 
 Nunca debe redactar la respuesta ni recibir datos de otras sesiones. Esas pruebas tendrán que
 ampliarse antes de publicarlo.
 
+## Instalarlo en emalsa.es
+
+El bot ya admite `emalsa.es` y `www.emalsa.es` como orígenes. Basta con copiar a la web
+`vendor/typebot-web.js` y añadir antes de `</body>`, en las páginas donde deba aparecer:
+
+```html
+<script type="module">
+  import Typebot from '/ruta/a/typebot-web.js'
+  Typebot.initBubble({
+    typebot: "eva-asistente-virtual-de-emalsa-oi2fy0m",
+    theme: { button: { backgroundColor: "#214881" }, chatWindow: { backgroundColor: "#FFFFFF" } },
+  });
+</script>
+```
+
+Si la web tiene Content-Security-Policy, debe permitir como mínimo:
+`connect-src https://typebot.io https://*.typebot.io`,
+`img-src https://typebot.io https://*.typebot.io data:`,
+`style-src 'unsafe-inline' https://fonts.bunny.net` y `font-src https://fonts.bunny.net`.
+
+## Traspaso a la empresa
+
+Hoy el bot está en una cuenta personal de Typebot y esta página en una cuenta personal de GitHub.
+Antes de ponerlo en producción hay que decidir:
+
+- **Plan de Typebot.** El plan gratuito muestra «Made with Typebot» y limita las conversaciones
+  mensuales. Un plan de pago quita la marca, amplía el cupo y permite alertas de uso.
+- **Titularidad.** Pasar el bot a un espacio de trabajo de la empresa (o añadirla como miembro)
+  y decidir quién puede publicar cambios.
+- **Protección de datos.** Typebot guarda cada conversación (respuestas pulsadas, navegador e IP).
+  Hace falta su contrato de encargado de tratamiento y fijar cuánto tiempo se conservan los
+  resultados.
+
 ### Pendiente fuera del repositorio
 
 - **Typebot:** activar la verificación en dos pasos, dejar en el espacio de trabajo solo a quien
