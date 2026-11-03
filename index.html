@@ -268,7 +268,39 @@
   footer{padding:36px 0; background:#0A1526; color:#7D93AC; font-size:14px}
   footer .wrap{display:flex; justify-content:space-between; gap:18px; flex-wrap:wrap}
 
+  /* ---------- escena 3D ---------- */
+  #escena{padding:0; background:#07121F}
+  .escena-alto{height:340vh; position:relative}
+  .escena-fija{position:sticky; top:0; height:100vh; overflow:hidden;
+    background:radial-gradient(1100px 760px at 50% 44%, #123154 0%, #0B1B32 45%, #07121F 100%)}
+  #lienzo3d{position:absolute; inset:0; width:100%; height:100%; display:block}
+  .escena-capa{position:absolute; inset:0; display:flex; align-items:flex-end;
+    padding:0 0 11vh; pointer-events:none;
+    background:linear-gradient(to top, rgba(7,18,31,.80) 0%, rgba(7,18,31,.34) 30%, transparent 58%)}
+  .escena-capa .wrap{width:100%}
+  .fase{position:absolute; max-width:30em; opacity:0; transform:translateY(16px);
+    transition:opacity .55s ease, transform .55s ease}
+  .fase.on{opacity:1; transform:none}
+  .fase .t{display:block; font-size:12.5px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--cian); font-weight:600; margin-bottom:14px}
+  .fase p{color:#fff; font-size:clamp(23px,3.4vw,38px); line-height:1.25; font-weight:500;
+    letter-spacing:-0.015em; text-shadow:0 2px 24px rgba(7,18,31,.65)}
+  .escena-pista{position:absolute; right:26px; bottom:26px; font-size:13px; color:#7D93AC;
+    display:flex; align-items:center; gap:9px}
+  .puntos{display:flex; gap:6px}
+  .puntos i{width:6px; height:6px; border-radius:50%;
+    background:rgba(255,255,255,.22); transition:background .4s ease}
+  .puntos i.on{background:var(--cian)}
+  @media(max-width:700px){
+    .escena-alto{height:300vh}
+    .escena-capa{padding-bottom:14vh}
+    .escena-pista{display:none}
+  }
+
   @media (prefers-reduced-motion: reduce){
+    .escena-alto{height:100vh}
+    .fase{opacity:1; transform:none; position:relative}
+    .fase:not(:last-child){display:none}
     html{scroll-behavior:auto}
     .rv{opacity:1 !important; transform:none !important}
     .msg.on,.opciones.on{animation:none}
@@ -337,7 +369,36 @@
     <p class="sub">EVA responde en la web y en WhatsApp las consultas de siempre —qué documentación hace falta, dónde se presenta, a qué teléfono llamar— a cualquier hora y solo con información que ustedes han validado.</p>
     <div class="cue">
       <span class="raton" aria-hidden="true"></span>
-      Baje para ver una conversación real, de principio a fin
+      Baje: el agua se convierte en conversación
+    </div>
+  </div>
+</section>
+
+<!-- ============ ESCENA 3D ============ -->
+<section id="escena" aria-label="Animación: del agua a la conversación">
+  <div class="escena-alto" id="escenaAlto">
+    <div class="escena-fija">
+      <canvas id="lienzo3d" aria-hidden="true"></canvas>
+      <div class="escena-capa">
+        <div class="wrap" style="position:relative; height:clamp(150px,22vh,230px)">
+          <div class="fase" data-f="0">
+            <span class="t">El agua</span>
+            <p>Detrás de cada grifo hay un servicio que no se detiene a las ocho de la tarde.</p>
+          </div>
+          <div class="fase" data-f="1">
+            <span class="t">La duda</span>
+            <p>Pero cada gota arrastra preguntas: qué papeles hacen falta, dónde se presentan, a quién se llama.</p>
+          </div>
+          <div class="fase" data-f="2">
+            <span class="t">La respuesta</span>
+            <p>EVA convierte esas preguntas en una conversación que se resuelve sola, a cualquier hora.</p>
+          </div>
+        </div>
+      </div>
+      <div class="escena-pista">
+        <span class="puntos" id="puntos"><i></i><i></i><i></i></span>
+        Mueva el ratón · siga bajando
+      </div>
     </div>
   </div>
 </section>
@@ -835,6 +896,253 @@
   window.addEventListener('resize', alDesplazar);
   alDesplazar();
 })();
+</script>
+
+<script type="module">
+/* ====================================================================
+   Escena 3D: 6.000 partículas que pasan por tres formas según se baja.
+   1) superficie de agua  2) una gota  3) el árbol de conversación
+   Si three.js no carga, la sección queda como un degradado y la página
+   sigue funcionando: nada más depende de esto.
+   ==================================================================== */
+try {
+  const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js');
+
+  const lienzo = document.getElementById('lienzo3d');
+  const alto   = document.getElementById('escenaAlto');
+  const fases  = Array.from(document.querySelectorAll('.fase'));
+  const puntos = Array.from(document.querySelectorAll('#puntos i'));
+  const quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const N = 6000;
+  const A = new Float32Array(N*3);   // agua
+  const B = new Float32Array(N*3);   // gota
+  const C = new Float32Array(N*3);   // conversación
+  const R = new Float32Array(N);     // semilla por partícula
+
+  /* ---- 1. superficie de agua: una malla con dos ondas cruzadas ---- */
+  const lado = Math.round(Math.sqrt(N));
+  for (let i = 0; i < N; i++) {
+    const u = (i % lado) / (lado - 1) - 0.5;
+    const v = Math.floor(i / lado) / (lado - 1) - 0.5;
+    A[i*3]   = u * 6.4;
+    A[i*3+1] = Math.sin(u * 8.5) * 0.16 + Math.cos(v * 6.5) * 0.16 - 0.8;
+    A[i*3+2] = v * 6.4;
+    R[i] = Math.random();
+  }
+
+  /* ---- 2. gota: superficie paramétrica de lágrima ---- */
+  const AUREO = Math.PI * (3 - Math.sqrt(5));
+  for (let i = 0; i < N; i++) {
+    const u = Math.acos(1 - 2 * (i + 0.5) / N);  // 0..PI, reparto uniforme
+    const v = i * AUREO;
+    const r = (1 - Math.cos(u)) * Math.sin(u) * 1.35;
+    B[i*3]   = Math.cos(v) * r;
+    B[i*3+1] = Math.cos(u) * 1.85;
+    B[i*3+2] = Math.sin(v) * r;
+  }
+
+  /* ---- 3. árbol de conversación: nodos y ramas ---- */
+  const nodos = [[0, 1.7, 0]];
+  const enlaces = [];
+  (function ramificar(padre, nivel, desde, hasta) {
+    if (nivel > 3) return;
+    const n = nivel === 1 ? 3 : 2;
+    for (let k = 0; k < n; k++) {
+      const a = desde + (hasta - desde) * ((k + 0.5) / n);
+      const rad = 0.8 + nivel * 0.45;
+      const hijo = [
+        Math.cos(a) * rad,
+        1.7 - nivel * 1.08,
+        Math.sin(a) * rad * 0.6
+      ];
+      nodos.push(hijo);
+      enlaces.push([padre, nodos.length - 1]);
+      ramificar(nodos.length - 1, nivel + 1, a - 0.5 / nivel, a + 0.5 / nivel);
+    }
+  })(0, 1, -Math.PI * 0.85, Math.PI * 0.85);
+
+  for (let i = 0; i < N; i++) {
+    if (i % 5 === 0) {                       // 20 % en los nodos
+      const n = nodos[i % nodos.length];
+      C[i*3]   = n[0] + (Math.random()-0.5) * 0.3;
+      C[i*3+1] = n[1] + (Math.random()-0.5) * 0.3;
+      C[i*3+2] = n[2] + (Math.random()-0.5) * 0.3;
+    } else {                                  // el resto, a lo largo de las ramas
+      const e = enlaces[i % enlaces.length];
+      const p = nodos[e[0]], q = nodos[e[1]], t = Math.random();
+      C[i*3]   = p[0] + (q[0]-p[0]) * t + (Math.random()-0.5) * 0.09;
+      C[i*3+1] = p[1] + (q[1]-p[1]) * t + (Math.random()-0.5) * 0.09;
+      C[i*3+2] = p[2] + (q[2]-p[2]) * t + (Math.random()-0.5) * 0.09;
+    }
+  }
+
+  /* ---- escena ---- */
+  const escena = new THREE.Scene();
+  const camara = new THREE.PerspectiveCamera(52, 1, 0.1, 100);
+  camara.position.set(0, 0.25, 7.4);
+
+  const render = new THREE.WebGLRenderer({ canvas: lienzo, antialias: true, alpha: true });
+  render.setClearColor(0x000000, 0);
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(A.slice(), 3));
+  geo.setAttribute('aA', new THREE.BufferAttribute(A, 3));
+  geo.setAttribute('aB', new THREE.BufferAttribute(B, 3));
+  geo.setAttribute('aC', new THREE.BufferAttribute(C, 3));
+  geo.setAttribute('aR', new THREE.BufferAttribute(R, 1));
+  geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 8);
+
+  const uni = {
+    uT:    { value: 0 },
+    uTime: { value: 0 },
+    uPix:  { value: 1 },
+    uAlto: { value: 800 }
+  };
+
+  const mat = new THREE.ShaderMaterial({
+    uniforms: uni,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    vertexShader: `
+      attribute vec3 aA; attribute vec3 aB; attribute vec3 aC; attribute float aR;
+      uniform float uT; uniform float uTime; uniform float uPix; uniform float uAlto;
+      varying float vMez; varying float vR;
+      void main(){
+        float t1 = smoothstep(0.0, 1.0, clamp(uT, 0.0, 1.0));
+        float t2 = smoothstep(0.0, 1.0, clamp(uT - 1.0, 0.0, 1.0));
+        // el desfase por partícula hace que la forma se rehaga por oleadas
+        float d  = aR * 0.35;
+        vec3 p = mix(aA, aB, clamp(t1 * 1.35 - d, 0.0, 1.0));
+        p = mix(p, aC, clamp(t2 * 1.35 - d, 0.0, 1.0));
+        // ondulación constante: aunque esté quieta, el conjunto respira
+        float onda = sin(uTime * 0.9 + aR * 6.28 + p.x * 1.6) * 0.055;
+        p.y += onda * (1.0 - t2 * 0.6);
+        p.x += cos(uTime * 0.7 + aR * 6.28) * 0.03;
+        vMez = clamp(uT * 0.5, 0.0, 1.0);
+        vR = aR;
+        vec4 mv = modelViewMatrix * vec4(p, 1.0);
+        gl_PointSize = (2.2 + aR * 2.6) * uPix * (uAlto / 900.0) * (7.0 / -mv.z);
+        gl_Position = projectionMatrix * mv;
+      }`,
+    fragmentShader: `
+      varying float vMez; varying float vR;
+      void main(){
+        float d = length(gl_PointCoord - vec2(0.5));
+        if (d > 0.5) discard;
+        float a = smoothstep(0.5, 0.08, d);
+        vec3 agua = vec3(0.168, 0.784, 0.910);   // cian
+        vec3 azul = vec3(0.165, 0.447, 0.769);   // azul medio
+        vec3 col = mix(azul, agua, vR * 0.75 + vMez * 0.25);
+        gl_FragColor = vec4(col, a * (0.42 + vR * 0.5));
+      }`
+  });
+
+  const nube = new THREE.Points(geo, mat);
+  const grupo = new THREE.Group();
+  grupo.add(nube);
+  escena.add(grupo);
+
+  /* ---- las ramas, que solo aparecen al final ---- */
+  const lineasPos = new Float32Array(enlaces.length * 6);
+  enlaces.forEach((e, i) => {
+    const p = nodos[e[0]], q = nodos[e[1]];
+    lineasPos.set([p[0], p[1], p[2], q[0], q[1], q[2]], i * 6);
+  });
+  const geoL = new THREE.BufferGeometry();
+  geoL.setAttribute('position', new THREE.BufferAttribute(lineasPos, 3));
+  const matL = new THREE.LineBasicMaterial({
+    color: 0x2BC8E8, transparent: true, opacity: 0, depthWrite: false
+  });
+  grupo.add(new THREE.LineSegments(geoL, matL));
+
+  /* ---- medidas ---- */
+  let zBase = 7.4;
+  function medir() {
+    const w = lienzo.clientWidth, h = lienzo.clientHeight;
+    const pix = Math.min(window.devicePixelRatio || 1, 2);
+    render.setPixelRatio(pix);
+    render.setSize(w, h, false);
+    camara.aspect = w / h;
+    camara.updateProjectionMatrix();
+    uni.uPix.value = pix;
+    uni.uAlto.value = h;
+    // En pantallas anchas la figura se corre a la derecha para dejar
+    // limpia la columna del texto; en móvil se queda centrada.
+    const ancha = w / h > 1.15;
+    grupo.position.x = ancha ? 1.35 : 0;
+    grupo.position.y = ancha ? 0.35 : 0.75;
+    // En vertical hay que alejarse, o la figura no cabe de lado a lado.
+    zBase = ancha ? 7.4 : 10.2;
+  }
+  medir();
+  window.addEventListener('resize', medir);
+
+  /* ---- ratón ---- */
+  let rx = 0, ry = 0, rxObj = 0, ryObj = 0;
+  window.addEventListener('pointermove', (e) => {
+    ryObj = (e.clientX / window.innerWidth - 0.5) * 0.55;
+    rxObj = (e.clientY / window.innerHeight - 0.5) * 0.3;
+  }, { passive: true });
+
+  /* ---- bucle ---- */
+  let visible = true;
+  new IntersectionObserver((es) => { visible = es[0].isIntersecting; })
+    .observe(document.getElementById('escena'));
+
+  const reloj = new THREE.Clock();
+  let faseActual = -1;
+
+  function avance() {
+    const r = alto.getBoundingClientRect();
+    const recorrido = alto.offsetHeight - window.innerHeight;
+    return recorrido > 0 ? Math.max(0, Math.min(1, -r.top / recorrido)) : 0;
+  }
+
+  function cuadro() {
+    requestAnimationFrame(cuadro);
+    if (!visible) return;
+
+    const p = avance();
+    // margen al principio y al final para que cada forma se vea entera
+    const t = Math.max(0, Math.min(2, (p - 0.08) / 0.84 * 2));
+    uni.uT.value = t;
+    uni.uTime.value = quieto ? 0 : reloj.getElapsedTime();
+
+    matL.opacity = Math.max(0, Math.min(0.5, (t - 1.45) * 1.6));
+    // Se acerca mientras se forma la gota y se retira para que el árbol
+    // de conversación quepa entero.
+    camara.position.z = zBase - Math.min(t, 1) * 1.1 + Math.max(0, t - 1) * 1.5;
+
+    rx += (rxObj - rx) * 0.05;
+    ry += (ryObj - ry) * 0.05;
+    grupo.rotation.x = rx + (t < 1 ? (1 - t) * 0.95 : 0);   // el agua se ve en picado
+    grupo.rotation.y = ry + (quieto ? 0 : reloj.getElapsedTime() * 0.055);
+
+    const f = t < 0.72 ? 0 : (t < 1.5 ? 1 : 2);
+    if (f !== faseActual) {
+      faseActual = f;
+      fases.forEach((el, i) => el.classList.toggle('on', i === f));
+      puntos.forEach((el, i) => el.classList.toggle('on', i === f));
+    }
+
+    render.render(escena, camara);
+  }
+
+  if (quieto) {
+    uni.uT.value = 2; matL.opacity = 0.5;
+    fases.forEach((el, i) => el.classList.toggle('on', i === 2));
+    render.render(escena, camara);
+  } else {
+    cuadro();
+  }
+} catch (err) {
+  // Sin WebGL o sin acceso al CDN: se deja el degradado y el último texto.
+  const f = document.querySelectorAll('.fase');
+  if (f.length) f[f.length - 1].classList.add('on');
+  console.warn('La escena 3D no se pudo iniciar:', err);
+}
 </script>
 
 <script type="module">
