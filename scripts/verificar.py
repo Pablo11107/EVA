@@ -8,9 +8,10 @@ Comprueba:
   1. Que la CSP autoriza exactamente los scripts en línea de index.html.
   2. Que las librerías de vendor/ coinciden con su huella SRI del importmap.
   3. Que el flujo exportado de Typebot (flujo/eva-chatbot.json) es determinista:
-     solo texto y botones, sin modelo de lenguaje, sin texto libre y sin
-     variables. Es lo que hace imposible la inyección de prompt y la mezcla de
-     datos entre usuarios: no hay modelo al que engañar ni datos que mezclar.
+     solo texto, botones y redirecciones a formularios o teléfonos oficiales,
+     sin modelo de lenguaje, sin texto libre y sin variables. Es lo que hace
+     imposible la inyección de prompt y la mezcla de datos entre usuarios: no
+     hay modelo al que engañar ni datos que mezclar.
   4. Que solo enlaza a emalsa.es, solo da los teléfonos oficiales, no contiene
      datos personales y solo se puede incrustar en los dominios previstos.
 
@@ -34,7 +35,7 @@ FLUJO = RAIZ / "flujo" / "eva-chatbot.json"
 # Anthropic, Mistral...), un campo de texto libre, un webhook o un script no
 # entran sin revisión de seguridad: con ellos dejan de valer las garantías de
 # arriba.
-BLOQUES_PERMITIDOS = {"text", "choice input"}
+BLOQUES_PERMITIDOS = {"text", "choice input", "Redirect"}
 DOMINIOS_PERMITIDOS = {"emalsa.es", "www.emalsa.es"}
 TELEFONOS_PERMITIDOS = {"928926033", "928010334"}
 ORIGENES_PERMITIDOS = {"https://pablo11107.github.io", "https://emalsa.es", "https://www.emalsa.es"}
@@ -141,6 +142,17 @@ def textos(nodo):
         yield nodo
 
 
+def verificar_redireccion(bloque, grupo):
+    """Un botón solo puede abrir un formulario de emalsa.es o llamar a un teléfono oficial."""
+    url = (bloque.get("options") or {}).get("url") or ""
+    p = urlparse(url)
+    if p.scheme == "https" and p.hostname in DOMINIOS_PERMITIDOS:
+        return []
+    if p.scheme == "tel" and re.sub(r"\D", "", p.path).removeprefix("34") in TELEFONOS_PERMITIDOS:
+        return []
+    return [f"redirección no permitida en «{grupo}»: {url or '(sin URL)'}"]
+
+
 def verificar_flujo(bot):
     errores = []
     bot = bot.get("typebot", bot)
@@ -150,6 +162,8 @@ def verificar_flujo(bot):
             if b.get("type") not in BLOQUES_PERMITIDOS:
                 errores.append(f"bloque no permitido «{b.get('type')}» en el grupo «{g.get('title')}»"
                                " (IA, texto libre, webhooks o scripts necesitan revisión de seguridad)")
+            if b.get("type") == "Redirect":
+                errores += verificar_redireccion(b, g.get("title"))
             if b.get("type") == "choice input":
                 opciones = b.get("options") or {}
                 if opciones.get("isMultipleChoice") or opciones.get("isSearchable"):

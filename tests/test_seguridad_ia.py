@@ -68,9 +68,9 @@ class EstadoActual(Base):
     def test_pagina_cumple_todo(self):
         self.assertEqual(verificar.verificar_pagina(HTML), [])
 
-    def test_flujo_solo_tiene_texto_y_botones(self):
+    def test_flujo_solo_tiene_texto_botones_y_redirecciones(self):
         tipos = {b["type"] for g in FLUJO["groups"] for b in g["blocks"]}
-        self.assertLessEqual(tipos, {"text", "choice input"})
+        self.assertLessEqual(tipos, {"text", "choice input", "Redirect"})
 
 
 class InyeccionDePrompt(Base):
@@ -129,6 +129,81 @@ class InyeccionDePrompt(Base):
                 f.write("\n/* alterado */")
             errores = verificar.verificar_pagina(HTML, raiz=Path(tmp))
         self.assertTrue(any("typebot-web.js no coincide" in e for e in errores), errores)
+
+
+class BotonesDeRedireccion(Base):
+    """Los botones «Rellenar formulario», «Llamar» y «Escribir» solo pueden llevar a
+    emalsa.es o a los teléfonos oficiales: si alguien cambiara el destino, el bot
+    serviría para mandar a los clientes a un formulario o a un número falso."""
+
+    def redireccion(self, url):
+        return anadir_bloque(flujo(), {"id": "x", "type": "Redirect", "options": {"url": url, "isNewTab": True}})
+
+    def test_destinos_oficiales_permitidos(self):
+        for url in ["https://emalsa.es/tramites/alta-de-suministro/", "https://www.emalsa.es/contacto/",
+                    "tel:+34928926033", "tel:+34928010334", "tel:928010334"]:
+            with self.subTest(url=url):
+                self.assertEqual(verificar.verificar_flujo(self.redireccion(url)), [])
+
+    def test_destinos_ajenos_bloqueados(self):
+        for url in ["https://emalsa-tramites.com/alta/", "https://emalsa.es.evil.example/",
+                    "http://emalsa.es/tramites/", "javascript:alert(document.cookie)",
+                    "tel:+34806123456", "tel:+34928926034", "sms:+34928926033",
+                    "data:text/html,<script>alert(1)</script>", ""]:
+            with self.subTest(url=url):
+                self.assertBloquea(self.redireccion(url), "redirección no permitida")
+
+    def test_redireccion_sin_opciones_bloqueada(self):
+        self.assertBloquea(anadir_bloque(flujo(), {"id": "x", "type": "Redirect"}), "redirección no permitida")
+
+    def test_cada_tramite_abre_el_formulario_que_indica(self):
+        """«Rellenar formulario» abre la misma URL que la respuesta da por escrito."""
+        aristas = {e["id"]: e for e in FLUJO["edges"]}
+        grupos = {g["id"]: g for g in FLUJO["groups"]}
+        revisados = 0
+        for g in FLUJO["groups"]:
+            fin = g["blocks"][-1]
+            boton = next((i for i in fin.get("items", []) if i["content"] == "Rellenar formulario"), None)
+            if not boton:
+                continue
+            donde = next(b for b in g["blocks"] if b["type"] == "text"
+                         and json.dumps(b, ensure_ascii=False).find("Dónde presentar la solicitud") >= 0)
+            escrita = next(x["url"] for x in _enlaces(donde["content"]["richText"]) if x["url"].startswith("https://"))
+            destino = grupos[aristas[boton["outgoingEdgeId"]]["to"]["groupId"]]
+            with self.subTest(tramite=g["title"]):
+                self.assertEqual(destino["blocks"][0]["type"], "Redirect")
+                self.assertEqual(destino["blocks"][0]["options"]["url"], escrita)
+            revisados += 1
+        self.assertEqual(revisados, 49)
+
+
+def _enlaces(nodos):
+    for n in nodos:
+        if n.get("type") == "a":
+            yield n
+        yield from _enlaces(n.get("children", []))
+
+
+class CifrasDeLaPagina(Base):
+    """Las cifras de la portada describen el flujo publicado: si cambia, deben cambiar."""
+
+    def cifra(self, texto):
+        import re
+        m = re.search(r'data-contar="(\d+)">0</div><div class="t">' + texto, HTML)
+        self.assertIsNotNone(m, texto)
+        return int(m.group(1))
+
+    def test_pantallas(self):
+        self.assertEqual(self.cifra("pantallas distintas"), len(FLUJO["groups"]))
+
+    def test_mensajes(self):
+        mensajes = sum(1 for g in FLUJO["groups"] for b in g["blocks"] if b["type"] in ("text", "choice input"))
+        self.assertEqual(self.cifra("mensajes redactados"), mensajes)
+
+    def test_tramites(self):
+        respuestas = {json.dumps(b["content"], sort_keys=True) for g in FLUJO["groups"] for b in g["blocks"]
+                      if b["type"] == "text" and json.dumps(b, ensure_ascii=False).find("Documentación a aportar") >= 0}
+        self.assertEqual(self.cifra("trámites con su documentación"), len(respuestas))
 
 
 class ProteccionDelPromptDeSistema(Base):
@@ -238,7 +313,7 @@ class AislamientoDeContexto(Base):
     def test_fuentes_recuperadas_solo_del_flujo(self):
         """No hay RAG: el único contenido que puede mostrar EVA es el del flujo revisado."""
         self.assertFalse([b for g in FLUJO["groups"] for b in g["blocks"]
-                          if b["type"] not in ("text", "choice input")])
+                          if b["type"] not in ("text", "choice input", "Redirect")])
         self.assertEqual(FLUJO.get("variables"), [])
 
 

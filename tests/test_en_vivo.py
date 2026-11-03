@@ -3,7 +3,7 @@
     EVA_PRUEBAS_EN_VIVO=1 python3 -m unittest tests.test_en_vivo -v
 
 Están desactivadas por defecto y no se ejecutan en CI: cada ejecución abre unas
-ocho conversaciones reales, que aparecen en las estadísticas de Typebot y
+trece conversaciones reales, que aparecen en las estadísticas de Typebot y
 consumen cupo. Conviene ejecutarlas después de cada publicación del flujo.
 
 Demuestran, contra el servidor real:
@@ -63,6 +63,12 @@ def rich_a_texto(nodos):
 
 
 BLOQUES = {b["id"]: b for g in FLUJO["groups"] for b in g["blocks"]}
+REDIRECCIONES = {b["options"]["url"] for b in BLOQUES.values() if b["type"] == "Redirect"}
+
+
+def redirecciones(respuesta):
+    """URLs que el bot ordena abrir al navegador en esta respuesta."""
+    return [a["redirect"]["url"] for a in respuesta.get("clientSideActions") or [] if "redirect" in a]
 
 
 def peticion(ruta, cuerpo, origen=ORIGEN):
@@ -105,6 +111,8 @@ class BotPublicado(unittest.TestCase):
             self.assertIn(m["id"], BLOQUES, f"mensaje que no está en el flujo: {texto[:120]}")
             esperado = rich_a_texto(BLOQUES[m["id"]]["content"]["richText"])
             self.assertEqual(texto, esperado, "el texto publicado difiere del flujo revisado")
+        for url in redirecciones(respuesta):
+            self.assertIn(url, REDIRECCIONES, f"redirección que no está en el flujo: {url}")
         entrada = respuesta.get("input")
         if entrada:
             self.assertIn(entrada["id"], BLOQUES)
@@ -174,6 +182,39 @@ class BotPublicado(unittest.TestCase):
         estado, r = responder(b["sessionId"], "Contrato")
         self.assertEqual(textos := [rich_a_texto(m["content"]["richText"]) for m in r["messages"]],
                          [MENSAJE_INVALIDO], f"la sesión B heredó el avance de A: {textos}")
+
+    # Botones de formulario, llamada y contacto por escrito.
+    def recorrer(self, *botones):
+        sesion = iniciar()
+        r = sesion
+        for boton in botones:
+            estado, r = responder(sesion["sessionId"], boton)
+            self.assertEqual(estado, 200, r)
+            self.assertSoloContenidoDelFlujo(r)
+        return r
+
+    def test_rellenar_formulario_abre_el_del_caso(self):
+        r = self.recorrer("Trámites", "Contrato", "Cambio de titular", "Vivienda", "Propietario",
+                          "Rellenar formulario")
+        self.assertEqual(redirecciones(r), ["https://emalsa.es/tramites/cambio-de-titularidad/"])
+        self.assertEqual([i["content"] for i in r["input"]["items"]],
+                         ["Otra gestión", "Hablar con alguien", "Menú principal", "Finalizar"])
+
+    def test_formulario_recuerda_la_opcion_del_desplegable(self):
+        r = self.recorrer("Trámites", "Contrato", "Alta de suministro", "Nunca ha tenido agua", "Vivienda",
+                          "Propietario", "Rellenar formulario")
+        self.assertEqual(redirecciones(r), ["https://emalsa.es/tramites/alta-de-suministro/"])
+        texto = " ".join(rich_a_texto(m["content"]["richText"]) for m in r["messages"])
+        self.assertIn("En el desplegable del formulario seleccione", texto)
+
+    def test_llamar_y_escribir_desde_hablar_con_alguien(self):
+        casos = {"Llamar a atención al cliente (928 926 033)": "tel:+34928926033",
+                 "Llamar a averías (928 010 334)": "tel:+34928010334",
+                 "Escribir por formulario": "https://emalsa.es/contacto/contacto-y-oficinas/"}
+        for boton, url in casos.items():
+            with self.subTest(boton=boton):
+                r = self.recorrer("Hablar con alguien", boton)
+                self.assertEqual(redirecciones(r), [url])
 
     def test_origen_no_permitido_rechazado(self):
         estado, r = peticion(f"/typebots/{BOT}/startChat", {}, origen="https://evil.example")

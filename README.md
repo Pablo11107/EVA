@@ -49,8 +49,12 @@ scripts en línea autorizados por su hash, y solo conecta con Typebot.
 
 - que la CSP autoriza exactamente los scripts en línea de la página;
 - que las librerías de `vendor/` coinciden con su huella SRI del `importmap`;
-- que el flujo solo tiene bloques de texto y botones (nada de webhooks, IA, campos de texto ni
-  scripts), sin variables, con *Remember user* desactivado y orígenes permitidos acotados;
+- que el flujo solo tiene bloques de texto, botones y redirecciones (nada de webhooks, IA, campos
+  de texto ni scripts), sin variables, con *Remember user* desactivado y orígenes permitidos acotados;
+- que los botones «Rellenar formulario», «Llamar» y «Escribir por formulario» solo abren páginas de
+  `https://emalsa.es` o llaman a los teléfonos oficiales, y que cada trámite abre el mismo
+  formulario que indica por escrito;
+- que las cifras de la portada (pantallas, mensajes, trámites) coinciden con el flujo;
 - que todos los enlaces del flujo van a `https://emalsa.es` y que solo aparecen los teléfonos
   oficiales (928 926 033 y 928 010 334).
 
@@ -72,12 +76,13 @@ EVA no usa ningún modelo de lenguaje: es un árbol de botones con respuestas es
 No hay prompt de sistema, ni RAG, ni texto libre, ni datos del usuario guardados en variables.
 La protección contra inyección de prompt, jailbreak y mezcla de datos entre usuarios es esa
 estructura, y el verificador impide que cambie sin revisión: rechaza cualquier bloque que no sea
-de texto o de botones (IA, campos de texto, webhooks, código), las variables, la precarga por URL
+de texto, de botones o una redirección a emalsa.es o a un teléfono oficial (IA, campos de texto,
+webhooks, código), las variables, la precarga por URL
 y *Remember user*.
 
 - `tests/test_seguridad_ia.py` (sin conexión, en CI): introduce cada vulnerabilidad en una copia
   del flujo o de la página y demuestra que el verificador la bloquea.
-- `tests/test_en_vivo.py` (manual, abre unas ocho conversaciones reales): ataca al bot publicado
+- `tests/test_en_vivo.py` (manual, abre unas trece conversaciones reales): ataca al bot publicado
   con inyecciones directas, disfrazadas de opción válida, con caracteres invisibles, HTML, falsos
   turnos de conversación y variables inyectadas; comprueba que el bot solo responde con contenido
   idéntico al del flujo revisado y que una sesión no puede leer ni reanudar otra.
