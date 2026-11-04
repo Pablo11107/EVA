@@ -123,9 +123,10 @@ Antes de ponerlo en producción hay que decidir:
   mensuales. Un plan de pago quita la marca, amplía el cupo y permite alertas de uso.
 - **Titularidad.** Pasar el bot a un espacio de trabajo de la empresa (o añadirla como miembro)
   y decidir quién puede publicar cambios.
-- **Protección de datos.** Typebot guarda cada conversación (respuestas pulsadas, navegador e IP).
-  Hace falta su contrato de encargado de tratamiento y fijar cuánto tiempo se conservan los
-  resultados.
+- **Protección de datos.** Typebot guarda cada conversación (botones pulsados, fecha y si se
+  completó) y declara tratar datos técnicos limitados para operar el servicio. El bot no deja
+  cookies ni guarda nada en el navegador. Hace falta su contrato de encargado de tratamiento y
+  fijar cuánto tiempo se conservan los resultados.
 
 ### Pendiente fuera del repositorio
 
