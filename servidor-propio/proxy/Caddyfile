@@ -1,0 +1,105 @@
+# Proxy inverso de EVA. Caddy obtiene y renueva solo los certificados TLS.
+#
+# Dos nombres:
+#   - El visor (EVA_DOMINIO_VISOR) es lo único público, y de él solo las tres
+#     rutas de la API que usa la burbuja de la web, y solo si la petición
+#     viene de emalsa.es. Todo lo demás responde 404. Desde la red interna
+#     se ve el visor completo (hace falta para la vista previa del editor).
+#   - El editor (EVA_DOMINIO_EDITOR) solo responde a la red interna. Desde
+#     fuera, 403.
+#
+# Las redes internas están escritas dos veces (visor y editor): ajustar las
+# dos a las de la empresa. Si delante de este servidor hay otro balanceador,
+# Caddy vería su IP y no la del visitante: declararlo en trusted_proxies.
+#
+# Comprobar la sintaxis antes de arrancar:
+#   docker compose run --rm proxy caddy validate --config /etc/caddy/Caddyfile
+
+{
+	email {$EVA_CORREO_TLS}
+	# servers {
+	# 	trusted_proxies static 10.0.0.5/32
+	# }
+}
+
+(cabeceras_seguridad) {
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "no-referrer"
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+		-Server
+		-X-Powered-By
+		defer
+	}
+}
+
+# Respuestas de la API: nunca se muestran como página ni en un marco.
+(cabeceras_api) {
+	header {
+		Content-Security-Policy "default-src 'none'; frame-ancestors 'none'"
+		Cache-Control "no-store"
+		defer
+	}
+}
+
+# ── Visor: público, acotado ──────────────────────────────────────────────────
+{$EVA_DOMINIO_VISOR} {
+	import cabeceras_seguridad
+	encode zstd gzip
+
+	# La burbuja envía peticiones pequeñas (un botón pulsado). 64 KB sobran.
+	request_body {
+		max_size 64KB
+	}
+
+	# Red interna: visor completo, para la vista previa del editor.
+	@interna remote_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16
+	handle @interna {
+		reverse_proxy typebot-viewer:3000
+	}
+
+	# Web pública: solo lo que usa la burbuja, y solo desde emalsa.es.
+	# El visor comprueba el Origin, pero deja pasar las peticiones que no lo
+	# traen (scripts); aquí se exige siempre.
+	@burbuja {
+		method POST OPTIONS
+		path /api/v1/typebots/{$EVA_PUBLIC_ID}/startChat /api/v1/sessions/*/continueChat /api/v1/sessions/*/clientLogs
+		header_regexp Origin ^https://(www\.)?emalsa\.es$
+	}
+	handle @burbuja {
+		import cabeceras_api
+		reverse_proxy typebot-viewer:3000
+	}
+
+	# Comprobación de vida para la monitorización, sin datos.
+	handle /healthz {
+		import cabeceras_api
+		reverse_proxy typebot-viewer:3000
+	}
+
+	handle {
+		import cabeceras_api
+		respond "No encontrado" 404
+	}
+}
+
+# ── Editor: solo red interna ────────────────────────────────────────────────
+{$EVA_DOMINIO_EDITOR} {
+	import cabeceras_seguridad
+	encode zstd gzip
+
+	@fuera not remote_ip 10.0.0.0/8 172.16.0.0/12 192.168.0.0/16
+	handle @fuera {
+		respond "Acceso restringido" 403
+	}
+
+	# Importar un flujo (el JSON de EVA ocupa unos 700 KB).
+	request_body {
+		max_size 8MB
+	}
+
+	handle {
+		reverse_proxy typebot-builder:3000
+	}
+}

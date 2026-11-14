@@ -18,3 +18,5 @@ jobs:
       - run: python3 scripts/verificar.py
       # Las pruebas contra el bot real (test_en_vivo.py) se saltan aquí: abren conversaciones reales.
       - run: python3 -m unittest discover -s tests -v
+      # El paquete de servidor propio: imágenes fijadas, nada expuesto, flujo idéntico al revisado.
+      - run: python3 -m unittest discover -s servidor-propio/pruebas -v

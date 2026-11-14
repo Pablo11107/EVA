@@ -1,0 +1,152 @@
+# EVA en servidor propio: Typebot (editor + visor), PostgreSQL, Redis y Caddy.
+#
+# Diferencias con el docker-compose.yml oficial de Typebot, y por qué:
+#   - Imágenes fijadas por versión Y por huella (digest). Una etiqueta como
+#     «latest» puede pasar a apuntar a otra imagen sin aviso; la huella no.
+#     Para actualizar: cambiar aquí la versión y la huella a propósito
+#     (ver README, «Actualizar»).
+#   - Ningún contenedor publica puertos en el servidor salvo Caddy (80/443).
+#     En el oficial, editor y visor quedan expuestos en 8080 y 8081 sin TLS.
+#   - La base de datos y Redis están en una red interna a la que Caddy no
+#     llega, y la contraseña de PostgreSQL sale de .env (en el oficial es
+#     «typebot»).
+#   - Sin privilegios: sin capacidades de Linux en editor, visor y proxy, y
+#     sin escalada de privilegios en ninguno.
+#   - Límites de memoria y de tamaño de registros, para que un fallo no
+#     llene el disco ni tumbe el servidor.
+#
+# Uso:  docker compose up -d        (requiere un .env relleno; ver .env.ejemplo)
+
+x-comun: &comun
+  restart: always
+  security_opt:
+    - no-new-privileges:true
+  logging:
+    driver: json-file
+    options:
+      max-size: "20m"
+      max-file: "5"
+
+x-typebot: &typebot
+  <<: *comun
+  env_file: .env
+  environment:
+    REDIS_URL: redis://typebot-redis:6379
+  cap_drop:
+    - ALL
+  tmpfs:
+    - /tmp
+  depends_on:
+    typebot-db:
+      condition: service_healthy
+    typebot-redis:
+      condition: service_healthy
+  networks:
+    - frontal
+    - interna
+  deploy:
+    resources:
+      limits:
+        memory: 1g
+
+services:
+
+  # ── Proxy inverso: TLS, cabeceras y control de quién habla con qué ────────
+  proxy:
+    <<: *comun
+    image: caddy:2@sha256:4e2425f6009577e7c651010f16679c28f7d12df3e7b1914f941a7a3370746b3c
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      EVA_DOMINIO_VISOR: ${EVA_DOMINIO_VISOR:?Defina EVA_DOMINIO_VISOR en .env}
+      EVA_DOMINIO_EDITOR: ${EVA_DOMINIO_EDITOR:?Defina EVA_DOMINIO_EDITOR en .env}
+      EVA_PUBLIC_ID: ${EVA_PUBLIC_ID:?Defina EVA_PUBLIC_ID en .env}
+      EVA_CORREO_TLS: ${EVA_CORREO_TLS:?Defina EVA_CORREO_TLS en .env}
+    volumes:
+      - ./proxy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-datos:/data
+      - caddy-config:/config
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    depends_on:
+      - typebot-builder
+      - typebot-viewer
+    networks:
+      - frontal
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+
+  # ── Base de datos: solo accesible desde editor y visor ───────────────────
+  typebot-db:
+    <<: *comun
+    image: postgres:16@sha256:63e83b5a3dc36a917dccb76fe1bd2ac51f1ec9c1deb47ff20d4f04233bf6eae9
+    environment:
+      POSTGRES_DB: typebot
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Defina POSTGRES_PASSWORD en .env (scripts/generar-secretos.sh)}
+    volumes:
+      - db-datos:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - interna
+    deploy:
+      resources:
+        limits:
+          memory: 1g
+
+  typebot-redis:
+    <<: *comun
+    image: redis:7-alpine@sha256:7f7d30b7fdd09467bac58198a1f166dd69789d348d4fe859cccb20e0cf287fbe
+    command: --save 60 1 --loglevel warning
+    volumes:
+      - redis-datos:/data
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      start_period: 20s
+      interval: 30s
+      timeout: 3s
+      retries: 5
+    networks:
+      - interna
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+
+  # ── Editor (builder): solo para la red interna, a través de Caddy ────────
+  typebot-builder:
+    <<: *typebot
+    image: baptistearno/typebot-builder:3.19.1@sha256:9b277e31c84773f49a07ef2d48c90dc83b01cabeaeef6eb1c43005264d194fdd
+
+  # ── Visor (viewer): lo único que ve la web pública, a través de Caddy ────
+  typebot-viewer:
+    <<: *typebot
+    image: baptistearno/typebot-viewer:3.19.1@sha256:1fba8b9a165c196af09c652e44feef01f6948204261d956cf7b545b2acd24425
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/healthz').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+
+networks:
+  frontal:
+    driver: bridge
+  interna:
+    driver: bridge
+    internal: true   # sin salida a Internet: la base de datos no la necesita
+
+volumes:
+  db-datos:
+  redis-datos:
+  caddy-datos:
+  caddy-config:

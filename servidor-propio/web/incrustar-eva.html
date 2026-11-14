@@ -1,0 +1,46 @@
+<!--
+  Cómo incrustar EVA en emalsa.es cuando el visor está en el servidor propio.
+
+  1. Copiar vendor/typebot-web.js del repositorio a la web de la empresa
+     (por ejemplo, en /js/typebot-web.js). No se carga de ningún CDN.
+  2. Pegar este bloque antes de </body>. Cambiar apiHost si el visor no se
+     llama asistente.emalsa.es.
+  3. En el servidor web de emalsa.es, enviar una Content-Security-Policy
+     que permita conectar con el visor (ver README, «La web de la empresa»).
+
+  La burbuja no pasa datos al bot (ni variables, ni sesión, ni resultado):
+  el flujo no los acepta, y el verificador del repositorio lo vigila.
+-->
+<script type="module">
+  import Typebot from '/js/typebot-web.js'
+
+  const icono = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">' +
+    '<path d="M60 10C60 10 24 50 24 74a36 36 0 0 0 72 0C96 50 60 10 60 10Z" fill="#ffffff"/>' +
+    '<rect x="40" y="58" width="40" height="7" rx="3.5" fill="#214881"/>' +
+    '<rect x="34" y="72" width="52" height="7" rx="3.5" fill="#214881"/>' +
+    '<rect x="44" y="86" width="32" height="7" rx="3.5" fill="#214881"/></svg>'
+  );
+  const iconoAzul = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">' +
+    '<path d="M60 10C60 10 24 50 24 74a36 36 0 0 0 72 0C96 50 60 10 60 10Z" fill="#214881"/>' +
+    '<rect x="40" y="58" width="40" height="7" rx="3.5" fill="#ffffff"/>' +
+    '<rect x="34" y="72" width="52" height="7" rx="3.5" fill="#ffffff"/>' +
+    '<rect x="44" y="86" width="32" height="7" rx="3.5" fill="#ffffff"/></svg>'
+  );
+  const escritorio = window.matchMedia('(min-width: 720px)').matches;
+
+  Typebot.initBubble({
+    typebot: "eva",                              // EVA_PUBLIC_ID del servidor
+    apiHost: "https://asistente.emalsa.es",      // EVA_DOMINIO_VISOR del servidor
+    theme: {
+      button: { backgroundColor: "#214881", customIconSrc: icono },
+      chatWindow: { backgroundColor: "#FFFFFF" },
+    },
+    previewMessage: escritorio ? {
+      message: "Hola, soy EVA. ¿Le ayudo con algún trámite?",
+      autoShowDelay: 6000,
+      avatarUrl: iconoAzul,
+    } : undefined,
+  });
+</script>

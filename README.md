@@ -16,6 +16,7 @@ Publicada en GitHub Pages: https://pablo11107.github.io/EVA/ (marcada `noindex`:
 | `media/recorrido-eva.mp4` | Vídeo del recorrido (grabado con el bot real) y su portada |
 | `scripts/verificar.py` | Comprobaciones de seguridad (ver más abajo) |
 | `tests/` | Pruebas de seguridad de IA: sin conexión (CI) y contra el bot real |
+| `servidor-propio/` | Paquete para alojar Typebot en un servidor de la empresa, con su revisión de seguridad |
 | `.github/workflows/verificar.yml` | Ejecuta el verificador y las pruebas en cada push |
 
 Las librerías y la fuente se sirven desde el propio sitio: la página no depende de ningún CDN
@@ -94,9 +95,22 @@ a devolver un identificador de una lista cerrada, validado en el servidor antes 
 Nunca debe redactar la respuesta ni recibir datos de otras sesiones. Esas pruebas tendrán que
 ampliarse antes de publicarlo.
 
-## Instalarlo en emalsa.es
+## Servidor propio
 
-El bot ya admite `emalsa.es` y `www.emalsa.es` como orígenes. Basta con copiar a la web
+La empresa ha decidido alojar EVA en su propio servidor. El paquete está en
+[`servidor-propio/`](servidor-propio/README.md): Docker Compose con las imágenes fijadas por
+huella, proxy con TLS y cabeceras, scripts de secretos, copias y plazo de conservación, el flujo
+preparado para importarlo y una batería de ataques (`pruebas/atacar.py`) para ejecutar contra el
+servidor antes de abrirlo al público. Los hallazgos y lo que hace el paquete con cada uno están
+en [`servidor-propio/REVISION-SEGURIDAD.md`](servidor-propio/REVISION-SEGURIDAD.md).
+
+Mientras el servidor no esté en marcha, la página de demostración sigue usando la nube de
+Typebot. Cuando lo esté: `python3 servidor-propio/scripts/apuntar-web.py --visor https://asistente.emalsa.es`.
+
+## Instalarlo en emalsa.es (con la nube de Typebot)
+
+Con el servidor propio, el bloque a pegar es `servidor-propio/web/incrustar-eva.html`. Con la nube,
+el bot ya admite `emalsa.es` y `www.emalsa.es` como orígenes. Basta con copiar a la web
 `vendor/typebot-web.js` y añadir antes de `</body>`, en las páginas donde deba aparecer:
 
 ```html

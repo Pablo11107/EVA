@@ -1,0 +1,15 @@
+# Secretos del servidor propio: nunca se suben.
+servidor-propio/.env
+servidor-propio/copias/
+
+# Archivos del sistema.
+.DS_Store
+
+# Documentos y material de trabajo que viven junto al repositorio pero no son parte de él.
+*.pdf
+!docs/*.pdf
+*.zip
+Emalsa.zip
+Versiones de código/
+Redes sociales/
+eva-logo/

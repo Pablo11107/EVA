@@ -39,6 +39,9 @@ BLOQUES_PERMITIDOS = {"text", "choice input", "Redirect"}
 DOMINIOS_PERMITIDOS = {"emalsa.es", "www.emalsa.es"}
 TELEFONOS_PERMITIDOS = {"928926033", "928010334"}
 ORIGENES_PERMITIDOS = {"https://pablo11107.github.io", "https://emalsa.es", "https://www.emalsa.es"}
+# Servidores a los que la burbuja puede apuntar (apiHost). Sin apiHost, la nube de Typebot.
+# El visor de la empresa, cuando esté en marcha (ver servidor-propio/).
+VISORES_PERMITIDOS = {"https://asistente.emalsa.es"}
 
 RE_SCRIPT = re.compile(r"<script([^>]*)>(.*?)</script>", re.S)
 RE_CSP = re.compile(r'(<meta http-equiv="Content-Security-Policy" content=")([^"]*)(")')
@@ -127,9 +130,13 @@ def verificar_pagina(html, raiz=RAIZ):
     # La burbuja no debe pasar datos al bot ni apuntar a otro servidor.
     burbuja = re.search(r"Typebot\.initBubble\(\{(.*?)\n  \}\);", html, re.S)
     if burbuja:
-        for clave in ("prefilledVariables", "apiHost", "wsHost", "sessionId", "resultId"):
+        for clave in ("prefilledVariables", "wsHost", "sessionId", "resultId"):
             if re.search(rf"\b{clave}\s*:", burbuja.group(1)):
                 errores.append(f"initBubble no debe definir {clave}")
+        m = re.search(r"\bapiHost\s*:\s*(\"[^\"]*\"|'[^']*'|[^,\n]+)", burbuja.group(1))
+        if m and m.group(1).strip("\"'") not in VISORES_PERMITIDOS:
+            errores.append(f"initBubble apunta a un servidor no previsto: apiHost {m.group(1).strip()}"
+                           f" (permitidos: {sorted(VISORES_PERMITIDOS)})")
     return errores
 
 
