@@ -97,6 +97,9 @@ distintos** (Typebot lo exige: comparten cookies si solo cambia el puerto).
 
 7. **Publicar**: botón *Publish*. En *Share*, cambiar el identificador público a `eva` (o el que
    se haya puesto en `EVA_PUBLIC_ID`). Si no coincide, Caddy responderá 404 a la web.
+   El flujo preparado ya trae desactivada la marca «Made with Typebot»; si aun así apareciera,
+   es que el espacio de trabajo está en plan *Free* (ver «Si algo falla») y el interruptor está
+   en *Theme → General → Typebot.io branding*.
 
 8. **Atacar el despliegue desde fuera** (desde una conexión que no sea la red de la empresa):
    ```bash

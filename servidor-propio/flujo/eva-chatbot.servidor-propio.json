@@ -25501,7 +25501,8 @@
       "isHideQueryParamsEnabled": true,
       "rememberUser": {
         "isEnabled": false
-      }
+      },
+      "isBrandingEnabled": false
     },
     "metadata": {
       "title": "EVA - Asistente virtual de EMALSA",

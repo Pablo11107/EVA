@@ -10,6 +10,8 @@ flujo, con tres diferencias, y solo esas:
   - allowedOrigins: solo emalsa.es y www.emalsa.es. La página de demostración
     de GitHub Pages deja de estar en la lista: la versión de la empresa solo
     se puede incrustar en la web de la empresa.
+  - isBrandingEnabled: false. Sin la marca «Made with Typebot», que la nube
+    gratuita obliga a mostrar.
   - publicId vacío: el identificador público se fija en el editor al publicar
     («Share»), y debe coincidir con EVA_PUBLIC_ID del .env del servidor.
   - Sin rastro de la cuenta de origen: carpeta, dominio personalizado,
@@ -35,6 +37,9 @@ def preparar(flujo):
     bot = dict(flujo.get("typebot", flujo))
     bot["settings"] = dict(bot.get("settings") or {})
     bot["settings"]["security"] = {"allowedOrigins": list(ORIGENES_EMPRESA)}
+    # Sin «Made with Typebot». En la nube gratuita Typebot lo fuerza al importar; en el servidor
+    # propio, con el plan ilimitado del administrador, respeta este valor.
+    bot["settings"]["general"] = {**(bot["settings"].get("general") or {}), "isBrandingEnabled": False}
     for campo, valor in CAMPOS_DE_LA_CUENTA.items():
         if campo in bot:
             bot[campo] = valor

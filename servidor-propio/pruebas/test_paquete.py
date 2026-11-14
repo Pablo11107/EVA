@@ -159,8 +159,11 @@ class Flujo(unittest.TestCase):
         cambios = {k for k in set(FLUJO) | set(self.bot) if FLUJO.get(k) != self.bot.get(k)}
         self.assertLessEqual(cambios, {"settings", "folderId", "customDomain", "whatsAppCredentialsId",
                                        "resultsTablePreferences", "publicId"}, cambios)
-        ajustes = {k: v for k, v in self.bot["settings"].items() if k != "security"}
-        self.assertEqual(ajustes, {k: v for k, v in FLUJO["settings"].items() if k != "security"})
+        ajustes = {k: v for k, v in self.bot["settings"].items() if k not in ("security", "general")}
+        self.assertEqual(ajustes, {k: v for k, v in FLUJO["settings"].items() if k not in ("security", "general")})
+        general = dict(self.bot["settings"]["general"])
+        self.assertIs(general.pop("isBrandingEnabled"), False)
+        self.assertEqual(general, {k: v for k, v in FLUJO["settings"]["general"].items() if k != "isBrandingEnabled"})
         self.assertEqual(self.bot["groups"], FLUJO["groups"])
         self.assertEqual(self.bot["edges"], FLUJO["edges"])
 
