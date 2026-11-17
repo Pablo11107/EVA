@@ -1,6 +1,9 @@
 # Secretos del servidor propio: nunca se suben.
 servidor-propio/.env
 servidor-propio/copias/
+# Estadísticas e informes mensuales: se quedan en el servidor de la empresa.
+servidor-propio/estadisticas/
+servidor-propio/informes/
 
 # Archivos del sistema.
 .DS_Store

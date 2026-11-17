@@ -34,6 +34,11 @@ libre, ni IP, ni datos del navegador (la IP la ve el proxy, que no guarda regist
 salvo que se activen). El plazo de conservación, que en la nube era una tarea manual, lo hace
 `scripts/purgar-resultados.sh` cada noche. Quien mantiene el contenido sigue siendo encargado
 del tratamiento si accede a los resultados: el contrato de encargo sigue haciendo falta.
+Para el informe mensual no necesita ese acceso: `scripts/estadisticas-mes.py` se ejecuta en el
+servidor y solo guarda recuentos (sin identificadores, horas exactas ni recorridos individuales),
+y el informe se genera a partir de ellos. La consulta usa variables de psql y valida el mes y el
+identificador del bot antes de ejecutarse; el informe escapa todo texto que venga del flujo y no
+carga nada de fuera.
 
 **Mantenimiento.** Aparece una tarea nueva, actualizar Typebot una vez al mes (cada versión
 trae correcciones de seguridad, y 3.19.0 trajo varias). Está descrita en el README con las

@@ -21,10 +21,13 @@ Lo que no permite es revender el acceso al editor o alojar Typebot para terceros
 | `scripts/copia-seguridad.sh` | Copia diaria de la base de datos, 30 días de histórico |
 | `scripts/purgar-resultados.sh` | Plazo de conservación automático de las conversaciones (90 días) |
 | `scripts/preparar-flujo.py` | Genera `flujo/eva-chatbot.servidor-propio.json`, el flujo a importar |
+| `scripts/estadisticas-mes.py` | Cuenta las conversaciones del mes antes de que la purga las borre. Solo recuentos |
+| `scripts/informe-mensual.py` | Convierte esas cuentas en el informe mensual para la empresa (HTML, se imprime a PDF) |
 | `scripts/apuntar-web.py` | Cuando todo funcione: apunta la página de demostración al visor nuevo |
 | `web/incrustar-eva.html` | El bloque que se pega en emalsa.es |
 | `pruebas/atacar.py` | Ataca el despliegue desde Internet y comprueba que todo queda fuera |
-| `pruebas/test_paquete.py` | Pruebas sin conexión del propio paquete (se ejecutan en CI) |
+| `pruebas/test_paquete.py`, `pruebas/test_estadisticas.py` | Pruebas sin conexión del paquete y de las estadísticas (se ejecutan en CI) |
+| `pruebas/simular-mes.py` | Simula un mes de conversaciones, para las pruebas y para el informe de ejemplo |
 | `REVISION-SEGURIDAD.md` | Qué ataques se han contemplado, qué se encontró y qué hace el paquete con cada uno |
 
 ## Arquitectura
@@ -115,7 +118,10 @@ distintos** (Typebot lo exige: comparten cookies si solo cambia el puerto).
     ```
     15 3 * * * eva /opt/eva/scripts/copia-seguridad.sh   >> /var/log/eva-copias.log 2>&1
     45 3 * * * eva /opt/eva/scripts/purgar-resultados.sh >> /var/log/eva-purga.log  2>&1
+    30 3 1 * * eva cd /opt/eva && python3 scripts/estadisticas-mes.py && python3 scripts/informe-mensual.py >> /var/log/eva-informe.log 2>&1
     ```
+    La tercera, el día 1 de cada mes, cuenta las conversaciones del mes anterior antes de la purga y
+    deja el informe en `informes/AAAA-MM.html`. Necesita `python3` en el servidor (sin paquetes extra).
 
 ## La web de la empresa
 
@@ -156,6 +162,23 @@ más de 90 días (`EVA_RETENCION_DIAS` para cambiarlo) y las sesiones inactivas.
 contiene fecha, botones pulsados y si llegó al final; no hay texto libre, IP ni datos del
 navegador. Los registros de acceso de Caddy no están activados; si se activan, fijarles también
 un plazo.
+
+**Informe mensual**: el día 1, `scripts/estadisticas-mes.py` lee de la base de datos las
+conversaciones del mes anterior y guarda en `estadisticas/AAAA-MM.json` solo recuentos: cuántas
+conversaciones, cómo acabaron, por qué pantallas pasaron, qué botones se pulsaron, y el reparto
+por hora y por día de la semana. Ningún identificador, ninguna hora exacta, ningún recorrido
+individual: no son datos personales y se pueden conservar sin plazo, que es lo que permite
+comparar un mes con otro cuando las conversaciones ya se han borrado. Después,
+`scripts/informe-mensual.py` genera `informes/AAAA-MM.html` (un archivo autónomo; «Imprimir →
+Guardar como PDF» para enviarlo) con los seis apartados: uso, resolución, qué consultan, dónde se
+atasca la gente, propuestas y seguimiento. Quien mantiene el contenido añade sus propuestas y el
+seguimiento de lo acordado en `estadisticas/AAAA-MM.notas.md` (secciones `## Propuestas` y
+`## Seguimiento`) y vuelve a ejecutar `informe-mensual.py --mes AAAA-MM`. Para entregarle el
+informe no hace falta darle acceso a los resultados: basta con enviarle el HTML o el PDF.
+
+Para recalcular un mes que todavía está en la base de datos (menos de 90 días):
+`python3 scripts/estadisticas-mes.py --mes 2026-11`. Si se cambió el contenido a mitad de mes y el
+script avisa de flechas desconocidas, añadir el flujo anterior con `--flujo ruta/al/flujo.json`.
 
 **Cuentas**: se invita desde el editor (*Settings & Members*). Cada persona con su correo, nunca
 cuentas compartidas, y se retira al dejar el proyecto. La persona que mantiene el contenido
