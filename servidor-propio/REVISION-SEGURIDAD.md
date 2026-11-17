@@ -39,6 +39,9 @@ servidor y solo guarda recuentos (sin identificadores, horas exactas ni recorrid
 y el informe se genera a partir de ellos. La consulta usa variables de psql y valida el mes y el
 identificador del bot antes de ejecutarse; el informe escapa todo texto que venga del flujo y no
 carga nada de fuera.
+El informe y las estadísticas salen de la empresa por correo (`scripts/enviar-informe.py`, a
+`EVA_INFORME_PARA`): solo llevan recuentos. El envío usa el buzón de salida de la empresa y no
+manda la contraseña del buzón si el servidor de correo no ofrece TLS.
 
 **Mantenimiento.** Aparece una tarea nueva, actualizar Typebot una vez al mes (cada versión
 trae correcciones de seguridad, y 3.19.0 trajo varias). Está descrita en el README con las

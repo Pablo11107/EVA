@@ -245,6 +245,112 @@ class Informe(unittest.TestCase):
         self.assertEqual(notas, {"propuestas": ["- Una", "Texto"], "seguimiento": ["- Dos"]})
 
 
+env = cargar(PAQUETE / "scripts" / "enviar-informe.py", "enviar_informe")
+
+
+class Envio(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        import tempfile
+        cls.tmp = tempfile.TemporaryDirectory()
+        cls.dir = Path(cls.tmp.name)
+        for mes, n, semilla in (("2026-10", 300, 3), ("2026-11", 400, 7)):
+            d = est.agregar(sim.simular(FLUJO, mes, n, semilla), CLASIF, mes)
+            (cls.dir / f"{mes}.json").write_text(json.dumps(d), encoding="utf-8")
+        (cls.dir / "2026-11.html").write_text(inf.informe(d), encoding="utf-8")
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.tmp.cleanup()
+
+    def correo(self):
+        return env.componer("2026-11", ["a@emalsa.es", "b@example.com"], "EVA <eva@emalsa.es>", self.dir, self.dir)
+
+    def test_adjuntos_con_el_nombre_que_espera_el_informe(self):
+        nombres = [p.get_filename() for p in self.correo().iter_attachments()]
+        self.assertEqual(nombres, ["2026-11.html", "2026-11.json", "2026-10.json"])
+
+    def test_cabeceras_y_texto(self):
+        m = self.correo()
+        self.assertEqual(m["To"], "a@emalsa.es, b@example.com")
+        self.assertIn("noviembre de 2026", m["Subject"])
+        self.assertNotIn("simulad", m["Subject"])
+        cuerpo = m.get_body(("plain",)).get_content()
+        self.assertIn("informe-mensual.py --mes 2026-11", cuerpo)
+        self.assertRegex(cuerpo, r"\d+ conversaciones")
+
+    def test_adjuntos_sin_datos_personales(self):
+        for parte in self.correo().iter_attachments():
+            if parte.get_filename().endswith(".json"):
+                texto = parte.get_payload(decode=True).decode()
+                self.assertNotRegex(texto, r"\bc[a-z0-9]{24}\b")
+                self.assertNotRegex(texto, r"\d{4}-\d\d-\d\dT\d\d")
+
+    def test_destinatarios_validados(self):
+        self.assertEqual(env.destinatarios(" a@emalsa.es , b@example.com,"), ["a@emalsa.es", "b@example.com"])
+        self.assertEqual(env.destinatarios(""), [])
+        for malo in ("sinarroba.com", "a@b.com\nBcc: x@y.com", "a@emalsa.es, <x>"):
+            with self.assertRaises(ValueError):
+                env.destinatarios(malo)
+
+    def test_falta_el_informe(self):
+        with self.assertRaises(FileNotFoundError):
+            env.componer("2026-09", ["a@emalsa.es"], "eva@emalsa.es", self.dir, self.dir)
+
+    def _smtp_falso(self, con_tls):
+        from unittest import mock
+        servidor = mock.MagicMock()
+        servidor.has_extn.side_effect = lambda e: con_tls and e == "starttls"
+        servidor.__enter__.return_value = servidor
+        return servidor
+
+    def test_starttls_antes_de_la_contrasena(self):
+        from unittest import mock
+        servidor = self._smtp_falso(con_tls=True)
+        conf = {"SMTP_HOST": "smtp.emalsa.es", "SMTP_PORT": "587", "SMTP_USERNAME": "eva@emalsa.es",
+                "SMTP_PASSWORD": "x"}
+        with mock.patch.object(env.smtplib, "SMTP", return_value=servidor):
+            env.enviar(self.correo(), conf)
+        llamadas = [c[0] for c in servidor.method_calls]
+        self.assertLess(llamadas.index("starttls"), llamadas.index("login"))
+        self.assertIn("send_message", llamadas)
+
+    def test_sin_tls_no_manda_la_contrasena(self):
+        from unittest import mock
+        servidor = self._smtp_falso(con_tls=False)
+        conf = {"SMTP_HOST": "smtp.emalsa.es", "SMTP_USERNAME": "eva@emalsa.es", "SMTP_PASSWORD": "x"}
+        with mock.patch.object(env.smtplib, "SMTP", return_value=servidor):
+            with self.assertRaises(RuntimeError):
+                env.enviar(self.correo(), conf)
+        self.assertNotIn("login", [c[0] for c in servidor.method_calls])
+        self.assertNotIn("send_message", [c[0] for c in servidor.method_calls])
+
+    def test_tls_directo(self):
+        from unittest import mock
+        servidor = self._smtp_falso(con_tls=False)
+        conf = {"SMTP_HOST": "smtp.emalsa.es", "SMTP_PORT": "465", "SMTP_SECURE": "true",
+                "SMTP_USERNAME": "eva@emalsa.es", "SMTP_PASSWORD": "x"}
+        with mock.patch.object(env.smtplib, "SMTP_SSL", return_value=servidor) as ssl_:
+            env.enviar(self.correo(), conf)
+        ssl_.assert_called_once()
+        self.assertIn("login", [c[0] for c in servidor.method_calls])
+
+    def test_sin_destinatarios_no_envia(self):
+        from unittest import mock
+        import io, contextlib
+        salida = io.StringIO()
+        with mock.patch.object(env, "leer_env", return_value={"EVA_INFORME_PARA": ""}), \
+                mock.patch.object(env.smtplib, "SMTP") as smtp, contextlib.redirect_stdout(salida):
+            env.main(["--mes", "2026-11", "--estadisticas", str(self.dir), "--informes", str(self.dir)])
+        smtp.assert_not_called()
+        self.assertIn("no se envía", salida.getvalue())
+
+    @unittest.skipUnless((RAIZ / ".git").exists(), "solo en el repositorio; el paquete entregado lleva la dirección")
+    def test_direccion_no_publicada(self):
+        """La dirección provisional se entrega aparte: en el repositorio, EVA_INFORME_PARA va vacío."""
+        self.assertRegex((PAQUETE / ".env.ejemplo").read_text(encoding="utf-8"), r"(?m)^EVA_INFORME_PARA=$")
+
+
 class Simulador(unittest.TestCase):
     def test_reproducible_y_dentro_del_mes(self):
         a = list(sim.simular(FLUJO, "2026-02", 200, 5))
@@ -259,11 +365,13 @@ class Simulador(unittest.TestCase):
 class Operacion(unittest.TestCase):
     def test_programado_antes_de_la_purga(self):
         readme = (PAQUETE / "README.md").read_text(encoding="utf-8")
-        m = re.search(r"^\s*(\d+) (\d+) 1 \* \* eva .*estadisticas-mes\.py.*informe-mensual\.py", readme, re.M)
+        m = re.search(r"^\s*(\d+) (\d+) 1 \* \* eva .*estadisticas-mes\.py.*informe-mensual\.py.*enviar-informe\.py",
+                      readme, re.M)
         self.assertIsNotNone(m, "falta la tarea mensual en el README")
         purga = re.search(r"^\s*(\d+) (\d+) \* \* \* eva .*purgar-resultados\.sh", readme, re.M)
         self.assertLess((int(m.group(2)), int(m.group(1))), (int(purga.group(2)), int(purga.group(1))))
 
+    @unittest.skipUnless((RAIZ / ".git").exists(), "solo en el repositorio")
     def test_datos_fuera_del_repositorio(self):
         ignorado = (RAIZ / ".gitignore").read_text(encoding="utf-8")
         self.assertIn("servidor-propio/estadisticas/", ignorado)

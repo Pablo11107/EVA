@@ -23,6 +23,7 @@ Lo que no permite es revender el acceso al editor o alojar Typebot para terceros
 | `scripts/preparar-flujo.py` | Genera `flujo/eva-chatbot.servidor-propio.json`, el flujo a importar |
 | `scripts/estadisticas-mes.py` | Cuenta las conversaciones del mes antes de que la purga las borre. Solo recuentos |
 | `scripts/informe-mensual.py` | Convierte esas cuentas en el informe mensual para la empresa (HTML, se imprime a PDF) |
+| `scripts/enviar-informe.py` | Envía el informe y las estadísticas por correo a `EVA_INFORME_PARA` |
 | `scripts/apuntar-web.py` | Cuando todo funcione: apunta la página de demostración al visor nuevo |
 | `web/incrustar-eva.html` | El bloque que se pega en emalsa.es |
 | `pruebas/atacar.py` | Ataca el despliegue desde Internet y comprueba que todo queda fuera |
@@ -118,10 +119,12 @@ distintos** (Typebot lo exige: comparten cookies si solo cambia el puerto).
     ```
     15 3 * * * eva /opt/eva/scripts/copia-seguridad.sh   >> /var/log/eva-copias.log 2>&1
     45 3 * * * eva /opt/eva/scripts/purgar-resultados.sh >> /var/log/eva-purga.log  2>&1
-    30 3 1 * * eva cd /opt/eva && python3 scripts/estadisticas-mes.py && python3 scripts/informe-mensual.py >> /var/log/eva-informe.log 2>&1
+    30 3 1 * * eva cd /opt/eva && python3 scripts/estadisticas-mes.py && python3 scripts/informe-mensual.py && python3 scripts/enviar-informe.py >> /var/log/eva-informe.log 2>&1
     ```
     La tercera, el día 1 de cada mes, cuenta las conversaciones del mes anterior antes de la purga y
-    deja el informe en `informes/AAAA-MM.html`. Necesita `python3` en el servidor (sin paquetes extra).
+    deja el informe en `informes/AAAA-MM.html` y lo envía a `EVA_INFORME_PARA`. Necesita `python3`
+    en el servidor (sin paquetes extra). Para probar el envío sin esperar al día 1:
+    `python3 scripts/enviar-informe.py --mes AAAA-MM` (o `--guardar prueba.eml` para no enviarlo).
 
 ## La web de la empresa
 
@@ -172,9 +175,12 @@ comparar un mes con otro cuando las conversaciones ya se han borrado. Después,
 `scripts/informe-mensual.py` genera `informes/AAAA-MM.html` (un archivo autónomo; «Imprimir →
 Guardar como PDF» para enviarlo) con los seis apartados: uso, resolución, qué consultan, dónde se
 atasca la gente, propuestas y seguimiento. Quien mantiene el contenido añade sus propuestas y el
-seguimiento de lo acordado en `estadisticas/AAAA-MM.notas.md` (secciones `## Propuestas` y
-`## Seguimiento`) y vuelve a ejecutar `informe-mensual.py --mes AAAA-MM`. Para entregarle el
-informe no hace falta darle acceso a los resultados: basta con enviarle el HTML o el PDF.
+seguimiento de lo acordado sin entrar en el servidor: `scripts/enviar-informe.py` le manda por
+correo el informe y las estadísticas (este mes y el anterior). En su ordenador, con el repositorio
+de EVA, guarda los `.json` en una carpeta, escribe allí `AAAA-MM.notas.md` (secciones
+`## Propuestas` y `## Seguimiento`) y ejecuta
+`python3 servidor-propio/scripts/informe-mensual.py --mes AAAA-MM --estadisticas <carpeta>`.
+El correo lleva estas mismas instrucciones. No necesita acceso a los resultados ni al servidor.
 
 Para recalcular un mes que todavía está en la base de datos (menos de 90 días):
 `python3 scripts/estadisticas-mes.py --mes 2026-11`. Si se cambió el contenido a mitad de mes y el
